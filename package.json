@@ -1,0 +1,21 @@
+{
+  "name": "component-rules",
+  "version": "1.0.0",
+  "description": "Rules for writing web components.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node ./src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "highlight.js": "^9.11.0",
+    "markdown-it": "^8.3.1",
+    "markdown-it-anchor": "^4.0.0",
+    "markdown-it-container": "^2.0.0",
+    "through2": "^2.0.3",
+    "vinyl": "^2.0.2",
+    "vinyl-fs": "^2.4.4"
+  }
+}
