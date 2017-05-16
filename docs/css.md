@@ -11,9 +11,11 @@
 
 :::GOOD
 ```html
-<span class="box"></span>
-<span class="box"></span>
-<span class="box"></span>
+<template>
+    <span class="box"></span>
+    <span class="box"></span>
+    <span class="box"></span>
+</template>
 <style rel="stylesheet/less">
 .demo-1 {
     // 组件样式
@@ -36,9 +38,11 @@
 :::
 :::BAD
 ```html
-<span class="box"></span>
-<span class="box"></span>
-<span class="box"></span>
+<template>
+    <span class="box"></span>
+    <span class="box"></span>
+    <span class="box"></span>
+</template>
 <style rel="stylesheet/less">
 .demo-2 {
     // 组件样式
@@ -67,9 +71,11 @@
 
 :::DEMO
 ```html
-<span class="box"></span>
-<span class="box"></span>
-<span class="box"></span>
+<template>
+    <span class="box"></span>
+    <span class="box"></span>
+    <span class="box"></span>
+</template>
 <style>
 .demo-3 {
     // 组件样式
@@ -85,13 +91,160 @@
         background: #ff6b6b;
     }
     // 使用组件时候的样式
-    &.good-demo .box {
+    .box {
         margin-right: 10px;
     }
 }
 </style>
 ```
 :::
+
+
+
+### 使用`box-sizing`
+
+组件的root节点样式优先使用`box-sizing:border-box;`，这样在组件外部就可以轻松控制组件的宽高。不需要考虑root节点的`border`和`padding`值。
+
+:::GOOD
+```html
+<template>
+    <span class="box">40x40</span>
+</template>
+<style rel="stylesheet/less">
+.demo-4 {
+    // 组件样式
+    .box {
+        display: inline-block;
+        margin: 0;
+        width: 30px;
+        height: 30px;
+        padding: 10px;
+        vertical-align: middle;
+        text-align: center;
+        border: 1px solid #c92a2a;
+        background: #f03e3e;
+        box-sizing: border-box;
+    }
+
+    // 使用组件时候的样式
+    &.good-demo .box {
+        width: 40px;
+        height: 40px;
+    }
+}
+</style>
+```
+:::
+:::BAD
+```html
+<template>
+    <span class="box">40x40</span>
+</template>
+<style rel="stylesheet/less">
+.demo-5 {
+    // 组件样式
+    .box {
+        display: inline-block;
+        margin: 0;
+        width: 30px - 20px - 2px;
+        height: 30px - 20px - 2px;
+        padding: 10px;
+        vertical-align: middle;
+        text-align: center;
+        border: 1px solid #c92a2a;
+        background: #f03e3e;
+    }
+
+    // 使用组件时候的样式
+    &.good-demo .box {
+        width: 40px - 20px - 2px;
+        height: 40px - 20px - 2px;
+    }
+}
+</style>
+:::
+
+
+
+### 使用`currentColor`
+
+如果组件颜色较为单一，可以使用`currentColor`来设置颜色。这样在组件外部就可以通过`color`属性来轻松控制组件的颜色
+
+:::DEMO
+```html
+<template>
+    <span class="button">按钮</span>
+</template>
+<style rel="stylesheet/less">
+.demo-6 {
+    // 组件样式
+    .button {
+        display: inline-block;
+        margin: 0;
+        width: 80px;
+        height: 40px;
+        line-height: 40px;
+        vertical-align: middle;
+        text-align: center;
+        color: #c92a2a;
+        border: 2px solid currentColor;
+        background: transparent;
+        box-sizing: border-box;
+    }
+
+    // 使用组件时候的样式
+    .button {
+        color: #0067ED;
+    }
+}
+</style>
+```
+:::
+
+
+
+### 组件内部尽量自适应高宽
+
+组件的高宽很可能会被修改，此时如果组件内部是自适应变化的，那么就可以大大提高组件的易用性。组件的使用者在外部只需要通过CSS的`width`和`height`就可以方便的修改组件的高宽，通常会配合`box-sizing:border-box`一起使用。
+
+> 在开发组件时一定要把高宽变化的情况考虑在内，尽量做到组件内部自适应高宽。
+
+:::DEMO
+```html
+<template>
+    <span class="input">
+        <span></span>
+        <input></input>
+        <span></span>
+    </span>
+</template>
+<style rel="stylesheet/less">
+.demo-6 {
+    // 组件样式
+    .button {
+        display: inline-block;
+        margin: 0;
+        width: 80px;
+        height: 40px;
+        line-height: 40px;
+        vertical-align: middle;
+        text-align: center;
+        color: #c92a2a;
+        border: 2px solid currentColor;
+        background: transparent;
+        box-sizing: border-box;
+    }
+
+    // 使用组件时候的样式
+    .button {
+        color: #0067ED;
+    }
+}
+</style>
+```
+:::
+
+
 
 ### 单个组件内CSS REST
 
@@ -110,7 +263,7 @@
 
     // 重置组件内部的常用标签
     div, span, object, iframe, h1, h2, h3, h4, h5, h6, p,
-    pre, a, abbr, acronym, address, code, del, dfn, em, img,
+    pre, a, abbr, address, code, del, dfn, em, img,
     dl, dt, dd, ol, ul, li, fieldset, form, label,
     legend, caption, tbody, tfoot, thead, tr,
     // html5 标签
@@ -149,9 +302,6 @@
     ol, ul {
         list-style: none;
     }
-    table, caption, tbody, tfoot, thead, tr {
-
-    }
     table {
         border-collapse: separate;
         border-spacing: 0;
@@ -164,18 +314,12 @@
     }
 
     // 行内元素
-    // TODO
-    span, object,
-    a, abbr, acronym, address, code, del, dfn, em, img,
-    dl, dt, dd, ol, ul, li, fieldset, form, label,
-    legend, caption, tbody, tfoot, thead, tr,
-    // html5 标签
-    article, aside, details, figcaption,
-    figure, footer, header, hgroup, menu, nav,
-    section, summary, main {
-
-    audio, canvas, video {
-        .inline-block();
+    span, a, label,
+    abbr, address, code, del, dfn, em {
+        display: inline;
+    }
+    img, object, audio, canvas, video {
+        display: inline-block;
     }
 }
 ```
