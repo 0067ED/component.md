@@ -9,7 +9,7 @@
 
 所以为了提高组件的易用性，一般推荐组件所能看到的大小即是它的真实大小。如下例子：
 
-:::GOOD
+:::DEMO
 ```html
 <template>
     <span class="box"></span>
@@ -19,7 +19,7 @@
 <style rel="stylesheet/less">
 .demo-1 {
     // 组件样式
-    .box {
+    &.good-demo .box {
         display: inline-block;
         margin: 0;
         width: 20px;
@@ -35,8 +35,7 @@
 }
 </style>
 ```
-:::
-:::BAD
+
 ```html
 <template>
     <span class="box"></span>
@@ -44,9 +43,9 @@
     <span class="box"></span>
 </template>
 <style rel="stylesheet/less">
-.demo-2 {
+.demo-1 {
     // 组件样式
-    .box {
+    &.bad-demo .box {
         display: inline-block;
         margin: 0 2px;
         width: 20px;
@@ -56,10 +55,10 @@
     }
 
     // 使用组件时候的样式
-    &.good-demo .box {
+    &.bad-demo .box {
         margin-right: 6px;
     }
-    &.good-demo .box:first-child {
+    &.bad-demo .box:first-child {
         margin-left: 0;
     }
 }
@@ -77,7 +76,7 @@
     <span class="box"></span>
 </template>
 <style>
-.demo-3 {
+.demo-2 {
     // 组件样式
     .box {
         display: inline-block;
@@ -105,15 +104,15 @@
 
 组件的root节点样式优先使用`box-sizing:border-box;`，这样在组件外部就可以轻松控制组件的宽高。不需要考虑root节点的`border`和`padding`值。
 
-:::GOOD
+:::DEMO
 ```html
 <template>
     <span class="box">40x40</span>
 </template>
 <style rel="stylesheet/less">
-.demo-4 {
+.demo-3 {
     // 组件样式
-    .box {
+    &.good-demo .box {
         display: inline-block;
         margin: 0;
         width: 30px;
@@ -134,16 +133,15 @@
 }
 </style>
 ```
-:::
-:::BAD
+
 ```html
 <template>
     <span class="box">40x40</span>
 </template>
 <style rel="stylesheet/less">
-.demo-5 {
+.demo-3 {
     // 组件样式
-    .box {
+    &.bad-demo .box {
         display: inline-block;
         margin: 0;
         width: 30px - 20px - 2px;
@@ -156,7 +154,7 @@
     }
 
     // 使用组件时候的样式
-    &.good-demo .box {
+    &.bad-demo .box {
         width: 40px - 20px - 2px;
         height: 40px - 20px - 2px;
     }
@@ -176,7 +174,7 @@
     <span class="button">按钮</span>
 </template>
 <style rel="stylesheet/less">
-.demo-6 {
+.demo-4 {
     // 组件样式
     .button {
         display: inline-block;
@@ -219,7 +217,7 @@
     </span>
 </template>
 <style rel="stylesheet/less">
-.demo-6 {
+.demo-5 {
     // 组件样式
     .button {
         display: inline-block;
@@ -256,7 +254,7 @@
     margin: 0;
     padding: 0;
     border: 0;
-    box-sizing: border-box;     // IE8+以支持，在有border的时候外部可以更轻松的控制组件宽高
+    box-sizing: border-box;     // IE8+以后支持，在有`border`的时候外部可以更轻松的控制组件宽高
     font-size: 14px;            //
     line-height: 20px;          //
     outline: 0;                 // 不适用浏览器默认focus状态，可以自定义

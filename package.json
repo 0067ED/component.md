@@ -10,12 +10,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cheerio": "^0.22.0",
     "highlight.js": "^9.11.0",
     "markdown-it": "^8.3.1",
     "markdown-it-anchor": "^4.0.0",
     "markdown-it-container": "^2.0.0",
     "through2": "^2.0.3",
     "vinyl": "^2.0.2",
-    "vinyl-fs": "^2.4.4"
+    "vinyl-fs": "^2.4.4",
+    "vue-template-compiler": "^2.3.3"
   }
 }
