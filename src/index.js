@@ -4,16 +4,19 @@ const MarkdownIt = require('markdown-it');
 const vfs = require('vinyl-fs');
 const Vinyl = require('vinyl');
 const through = require('through2');
-const cheerio = require('cheerio');
+const compileVue = require('./compileVue');
+
 const md = new MarkdownIt({
     html: true,
     highlight: function (str, lang) {
         if (lang && hljs.getLanguage(lang)) {
+
             try {
+                console.log(compileVue(str));
                 return `<pre class="hljs"><code>
                         ${hljs.highlight(lang, str).value}
                     </code></pre>
-                    ${renderVueTemplate(str)}`;
+                    ${lang.toLowerCase() == 'html' ? compileVue(str) : ''}`;
             }
             catch (e) {}
         }
@@ -60,22 +63,6 @@ const FOOTER_HTML = `
     </body>
     </html>`;
 
-function renderVueTemplate(html) {
-    const $ = cheerio.load(html, {
-        decodeEntities: false,
-        lowerCaseAttributeNames: false,
-        lowerCaseTags: false
-    });
-
-    let result = `
-        ${$.html('template')}
-        ${$.html('style')}
-        ${$.html('script')}
-    `;
-
-    return result;
-}
-
 function run(options) {
     const src = options && options.src || './docs/**/*.md';
     const dest = options && options.dest || './docs';
@@ -93,11 +80,17 @@ function run(options) {
                     return;
                 }
 
-                files.push(Buffer.concat([
-                    new Buffer('<div class="module">'),
-                    new Buffer(md.render(file.contents.toString())),
-                    new Buffer('</div>')
-                ]));
+                try {
+                    files.push(Buffer.concat([
+                        new Buffer('<div class="module">'),
+                        new Buffer(md.render(file.contents.toString())),
+                        new Buffer('</div>')
+                    ]));
+                }
+                catch (e) {
+                    console.log(e);
+                    callback(e);
+                }
                 callback();
             },
             function (callback) {
@@ -106,6 +99,7 @@ function run(options) {
                     .replace('{beforeHTML}', '')
                 ));
                 files.push(new Buffer(FOOTER_HTML));
+                // console.log(Buffer.concat(files).toString());
                 this.push(new Vinyl({
                     base: dest,
                     path: `${dest}/index.html`,
