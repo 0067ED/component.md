@@ -18,6 +18,7 @@
     "markdown-it": "^8.3.1",
     "markdown-it-anchor": "^4.0.0",
     "markdown-it-container": "^2.0.0",
+    "postcss-salad": "^1.0.8",
     "through2": "^2.0.3",
     "transpile": "^2.3.0",
     "vinyl": "^2.0.2",
