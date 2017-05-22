@@ -14,8 +14,10 @@ module.exports = function compileVue(html) {
     const template = compileTemplate(`<div class="demo-component">
         ${$.html('template')}
     </div>`, scopedId);
-    const style = $.html('style');
-    console.log(style);
+    const style = $.html('style')
+        .trim()
+        .replace(/^<style[^>]*>/i, '')
+        .replace(/^<\/style>/i, '');
     // TODO transform style
     const script = ($.html('script') || `export default {}`).replace('export default', 'return');
     const code = `
