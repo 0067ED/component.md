@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const babel = require('babel-core');
 
 let scopedId = 0;
-module.exports = function compileVue(html) {
+module.exports = function compileVue(html, styles) {
     const $ = cheerio.load(html, {
         decodeEntities: false,
         lowerCaseAttributeNames: false,
@@ -11,14 +11,13 @@ module.exports = function compileVue(html) {
     });
 
     scopedId++;
-    const template = compileTemplate(`<div class="demo-component">
+    const template = compileTemplate(`<div class="component">
         ${$.html('template')}
     </div>`, scopedId);
     const style = $.html('style')
         .trim()
         .replace(/^<style[^>]*>/i, '')
-        .replace(/^<\/style>/i, '');
-    // TODO transform style
+        .replace(/<\/style>$/i, '');
     const script = ($.html('script') || `export default {}`).replace('export default', 'return');
     const code = `
 (function () {
@@ -33,16 +32,16 @@ module.exports = function compileVue(html) {
     })());
     var scripts = document.getElementsByTagName('script');
     var script = scripts[scripts.length - 1];
-    new DemoComponent().$mount(script.previousSibling.previousSibling);
+    new DemoComponent().$mount(script.previousElementSibling);
 })();
 `;
 
+    styles.push(style);
     const r = babel.transform(code, {
         presets: ['es2016']
     });
     return `
         <div></div>
-        <style>${style}</style>
         <script>${r.code}</script>
     `;
 }

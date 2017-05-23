@@ -1,5 +1,8 @@
 (function () {
     var theToggle = document.getElementById('toggle');
+    if (!theToggle) {
+        return;
+    }
 
     // based on Todd Motto functions
     // http://toddmotto.com/labs/reusable-js/

@@ -2,26 +2,18 @@ body, div, p, h1, h2, h3, h4, h5, h6 {
     margin: 0;
     font-weight: normal;
 }
-body {
-    margin-bottom: 100px;
+html, body {
     font: 16px/2 arial,sans-serif;
     color: #495057;
-    background-color: #f8f9fa;
+    background-color: #FFF;
+}
+@media (min-width: 1024px) {
+    html, body {
+        font-size: 24px;
+    }
 }
 code {
     font-family: Consolas, Monaco, monospace;
-}
-a {
-    padding: 4px 2px 3px;
-    text-decoration: none;
-    color: #343a40;
-    border-radius: 2px;
-    border-bottom: 1px solid #adb5bd;
-}
-a:hover {
-    color: #FFF;
-    background-color: #495057;
-    border-bottom-color: #495057;
 }
 img {
     max-width: 100%;
@@ -30,129 +22,7 @@ img {
 
 
 /* outline */
-.on ~ .outline {
-    left: 0;
-}
 .outline {
-    position: fixed;
-    top: 0;
-    left: -240px;
-    margin: 0;
-    padding: 42px 0 10px 10px;
-    width: 240px;
-    height: 100%;
-    overflow: auto;
-    box-sizing: border-box;
-    color: #FFF;
-    text-align: right;
-    background-color: #495057;
-    transition: left 200ms;
-    transform: translateZ(0);
-}
-.outline h2 {
-    font-size: 32px;
-}
-.outline a {
-    color: #FFF;
-    text-decoration: none;
-    border: none;
-}
-.outline a:hover {
-    border-radius: 0;
-    border-bottom: 1px solid #FFF;
-}
-.outline ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-.outline .outline-outter {
-    margin: 0;
-    padding: 0;
-}
-.outline .outline-outter > li {
-    margin-bottom: 32px;
-    overflow: hidden;
-    clear: left;
-}
-.outline .outline-outter > li > a {
-    padding: 0;
-    text-transform: uppercase;
-    border-bottom: none;
-}
-.outline .outline-outter > li > a:after {
-    content: '';
-    float: right;
-    margin: 11px 0 0 10px;
-    height: 0;
-    width: 0;
-    border: 5px solid #FFF;
-    border-left-color: transparent;
-    border-top-color: transparent;
-    border-bottom-color: transparent;
-}
-.outline .outline-inner > li {
-    margin: 0;
-}
-.outline .outline-inner > li > a:after {
-    content: '';
-    float: right;
-    margin: 16px 0 0 5px;
-    height: 0;
-    width: 20px;
-    border-bottom: 1px dashed #FFF;
-}
-
-/* toggle */
-/* Important styles */
-#toggle {
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    width: 28px;
-    height: 30px;
-    margin: 30px 20px 10px;
-    cursor: pointer;
-    transform: translateZ(0);
-    transition: all 200ms;
-}
-#toggle.on {
-    left: 240px;
-}
-#toggle span:after,
-#toggle span:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: -9px;
-}
-#toggle span:after{
-    top: 9px;
-}
-#toggle span {
-    position: relative;
-    display: block;
-    margin-top: 12px;
-}
-#toggle span,
-#toggle span:after,
-#toggle span:before {
-    width: 100%;
-    height: 5px;
-    background-color: #495057;
-    transition: all 0.3s;
-    backface-visibility: hidden;
-    border-radius: 1px;
-}
-/* on activation */
-#toggle.on span {
-    background-color: transparent;
-}
-#toggle.on span:before {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-#toggle.on span:after {
-    transform: rotate(-45deg) translate(7px, -8px);
 }
 
 
@@ -164,63 +34,13 @@ img {
 
 /* header */
 .header {
-    padding: 240px 64px 32px;
+    padding: 5rem 2rem 3rem;
     overflow: hidden;
-}
-.header h1 {
-    margin: 0 auto;
-    line-height: 1;
-    font-size: 64px;
-    text-align: center;
-}
-.header h1 {
-    font-size: 100px;
-    font-weight: bold;
-}
-.header h1 a {
-    padding: 20px 0;
-    width: 400px;
-    display: inline-block;
-    box-sizing: border-box;
-    border: none;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
     color: #FFF;
-    background-color: #495057;
+    background: #495057;
 }
-.header h1 a:hover {
-    border-radius: 2px;
-    color: #FFF;
-    background-color: #495057;
-}
-.header-info {
+.header > * {
     margin: 0 auto;
-    padding: 10px;
-    width: 400px;
-    line-height: 40px;
-    font-size: 32px;
-    border: 3px solid #495057;
-    box-sizing: border-box;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-
-
-/* menu */
-.menu {
-    list-style: none;
-    margin: 0 0 96px;
-    padding: 0;
-    text-align: center;
-}
-.menu li {
-    display: inline;
-    margin: 0 16px;
-    line-height: 32px;
-    font-size: 24px;
 }
 
 
@@ -228,113 +48,68 @@ img {
 .module {
     /* padding: 0 64px; */
 }
-.module:after {
-    content: '. . .';
-    display: block;
-    padding-bottom: 40px;
-    font-size: 64px;
-    color: #adb5bd;
-    text-align: center;
-}
 .module > * {
-    margin: 32px auto;
-    max-width: 700px;
+    margin: 0;
+    padding: 0 2rem;
+    box-sizing: border-box;
 }
 .module > *:last-child {
     margin-bottom: 0 !important;
 }
-/*
-.module > div,
-.module > p,
-.module > blockquote,
-.code > div,
-.code > p,
-.code > blockquote {
-    max-width: 700px;
+.module p {
+    margin: 1rem 0;
 }
-*/
 
 /* module h2 */
 .module h2 {
     margin-top: 0;
     margin-bottom: 0;
     padding: 0;
-    font-size: 48px;
+    font-size: 3rem;
     font-weight: normal;
     text-transform: uppercase;
     text-align: center;
+    background-color: #f1f3f5;
 }
 
 /* module h3 */
 .module h3 {
     position: relative;
-    margin-top: 64px;
-    margin-bottom: 32px;
-    line-height: 32px;
-    font-size: 24px;
+    padding-top: 2rem;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    line-height: 2rem;
+    font-size: 1.5rem;
+    border-top: 1px solid #dee2e6;
 }
 .module h3 code:before {
     content: '¶';
-    margin-right: 5px;
+    margin-right: 0.5rem;
     position: absolute;
-    left: -32px;
-    width: 32px;
+    left: -2rem;
+    width: 2rem;
     color: #adb5bd;
     text-align: center;
 }
 
 /* module h4 */
 .module h4 {
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 /* blockquote */
 .module blockquote {
-    padding-left: 16px;
+    padding-left: 1rem;
     color: #868e96;
     border-left: 2px solid currentColor;
 }
 
-/* code */
-.module .code {
-    margin: 32px 0;
-    padding: 0;
-    max-width: 100%;
-}
-.code {
-    box-sizing: border-box;
-}
-.code > * {
-    margin: 32px auto;
-    max-width: 700px;
-}
-.code > pre {
-    margin: 0 auto;
-    padding: 16px 64px;
-    max-width: 100%;
-    width: 100%;
-    font-size: 16px;
-    line-height: 30px;
-    overflow-x: scroll;
-    background: #f1f3f5;
-    border: 1px solid #e9ecef;
-    border-left: none;
-    border-right: none;
-    box-sizing: border-box;
-}
-.code > pre code {
-    margin: auto;
-    max-width: 700px;
-    display: block;
-    font-size: 16px;
-}
-
-/* table */
+/* table
 .module table {
     padding: 0;
     display: table;
     max-width: 100%;
-    font-size: 16px;
+    font-size: 1rem;
     border-collapse: collapse;
     border-spacing: 0;
     box-sizing: border-box;
@@ -348,67 +123,40 @@ img {
 }
 .module table td,
 .module table th {
-    min-width: 100px;
-    padding: 4px;
-    font-size: 16px;
+    min-width: 10rem;
+    padding: 0.25rem;
+    font-size: 1rem;
     font-weight: normal;
     border: 1px solid #dee2e6;
     box-sizing: border-box;
-}
+}*/
 
-
-
-/* page-index */
-.header {
-}
-
-
-.page-api .main {
-    margin-left: 0;
-    min-width: 700px;
-}
-.page-api .on ~ .main {
-    margin-left: 240px;
-}
-/* page-tutorial, page-api
-.page-api .main,
-.page-tutorial .main {
-    margin-top: 60px;
-    border-top: 2px solid #495057;
-}
-.page-api .header,
-.page-tutorial .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 60px;
+/* demo */
+.demo {
+    position: relative;
     padding: 0;
+    border-top: 1px solid #dee2e6;
 }
-.page-api .header h1,
-.page-tutorial .header h1 {
-    float: left;
-    height: 60px;
-    line-height: 60px;
-    font-size: 48px;
+.demo > * {
+    padding: 0 2rem;
 }
-.page-api .header h1 span,
-.page-tutorial .header h1 span {
-    width: auto;
-    padding: 0 10px;
-    height: 60px;
-    line-height: 60px;
-    border-radius: 0;
+.demo > *:last-child {
+    margin-bottom: 0;
 }
-.page-api .header-info,
-.page-tutorial .header-info {
-    display: none;
+.demo > pre {
+    padding: 1rem 2rem;
+    margin: 0;
+    display: block;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    border-top: 1px solid #dee2e6;
+    box-sizing: border-box;
+    background-color: #f1f3f5;
 }
-.page-api .menu,
-.page-tutorial .menu {
-    position: fixed;
-    top: 10px;
-    left: 160px;
-    height: 50px;
-    line-height: 50px;
+.demo-view {
+    display: block;
+    border-bottom: 1px solid #dee2e6;
+    box-sizing: border-box;
+    background-color: #f1f3f5;
+    margin-bottom: 1rem;
 }
- */

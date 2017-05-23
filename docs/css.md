@@ -3,13 +3,14 @@
 
 ### 所见即所得
 
+:::DEMO
+
 一般情况下，**组件所能看到的大小即是它的真实大小**。尽量不要在组件上使用看不见的边界，例如在外部加入`margin`样式。
 
 这样做的好处是：从设计师的角度出发去设计你的代码，设计师给到的标注稿的间距标注一般不会考虑组件外部的透明边界。而组件的使用者（其他开发同学）可能不知道这样的边界的存在，就会造成一些返工。
 
 所以为了提高组件的易用性，一般推荐组件所能看到的大小即是它的真实大小。如下例子：
 
-:::DEMO
 ```html
 <template>
     <span class="box"></span>
@@ -19,7 +20,7 @@
 <style rel="stylesheet/less">
 .demo-1 {
     // 组件样式
-    &.good-demo .box {
+    .demo-view-1 .box {
         display: inline-block;
         margin: 0;
         width: 20px;
@@ -29,7 +30,7 @@
     }
 
     // 使用组件时候的样式
-    &.good-demo .box {
+    .demo-view-1 .box {
         margin-right: 10px;
     }
 }
@@ -45,7 +46,7 @@
 <style rel="stylesheet/less">
 .demo-1 {
     // 组件样式
-    &.bad-demo .box {
+    .demo-view-2 .box {
         display: inline-block;
         margin: 0 2px;
         width: 20px;
@@ -55,10 +56,10 @@
     }
 
     // 使用组件时候的样式
-    &.bad-demo .box {
+    .demo-view-2 .box {
         margin-right: 6px;
     }
-    &.bad-demo .box:first-child {
+    .demo-view-2 .box:first-child {
         margin-left: 0;
     }
 }
@@ -66,9 +67,10 @@
 ```
 :::
 
+:::DEMO
+
 当然也会存在一些例外情况，比如说组件的鼠标响应区域比组件的实际展示区域要大。这时候我们推荐和设计师做好充分地沟通，确认标注稿之后要考虑到这些隐藏边界，或者根本不关心这些隐藏边界导致的几像素偏差。以简化组件使用者在使用此组件时候的难度。例子如下：
 
-:::DEMO
 ```html
 <template>
     <span class="box"></span>
@@ -102,9 +104,10 @@
 
 ### 使用`box-sizing`
 
+:::DEMO
+
 组件的root节点样式优先使用`box-sizing:border-box;`，这样在组件外部就可以轻松控制组件的宽高。不需要考虑root节点的`border`和`padding`值。
 
-:::DEMO
 ```html
 <template>
     <span class="box">40x40</span>
@@ -112,7 +115,7 @@
 <style rel="stylesheet/less">
 .demo-3 {
     // 组件样式
-    &.good-demo .box {
+    .demo-view-1 .box {
         display: inline-block;
         margin: 0;
         width: 30px;
@@ -126,7 +129,7 @@
     }
 
     // 使用组件时候的样式
-    &.good-demo .box {
+    .demo-view-1 .box {
         width: 40px;
         height: 40px;
     }
@@ -141,7 +144,7 @@
 <style rel="stylesheet/less">
 .demo-3 {
     // 组件样式
-    &.bad-demo .box {
+    .demo-view-2 .box {
         display: inline-block;
         margin: 0;
         width: 30px - 20px - 2px;
@@ -154,7 +157,7 @@
     }
 
     // 使用组件时候的样式
-    &.bad-demo .box {
+    .demo-view-2 .box {
         width: 40px - 20px - 2px;
         height: 40px - 20px - 2px;
     }
@@ -166,9 +169,10 @@
 
 ### 使用`currentColor`
 
+:::DEMO
+
 如果组件颜色较为单一，可以使用`currentColor`来设置颜色。这样在组件外部就可以通过`color`属性来轻松控制组件的颜色
 
-:::DEMO
 ```html
 <template>
     <span class="button">按钮</span>
@@ -203,11 +207,12 @@
 
 ### 组件内部尽量自适应高宽
 
+:::DEMO
+
 组件的高宽很可能会被修改，此时如果组件内部是自适应变化的，那么就可以大大提高组件的易用性。组件的使用者在外部只需要通过CSS的`width`和`height`就可以方便的修改组件的高宽，通常会配合`box-sizing:border-box`一起使用。
 
 > 在开发组件时一定要把高宽变化的情况考虑在内，尽量做到组件内部自适应高宽。
 
-:::DEMO
 ```html
 <template>
     <span class="input">
