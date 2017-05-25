@@ -9,77 +9,68 @@
         <link rel="stylesheet" href="./static/doc.css">
         <script src="//unpkg.com/vue@2.3.3"></script>
         <style>
-.demo-1 .demo-view-1 .box {
+.rule-1 .rule-view-1 .box {
   display: inline-block;
   margin: 0;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #c92a2a;
-  background: #f03e3e;
-}
-.demo-1 .demo-view-1 .box {
-  margin-right: 10px;
-}
-.demo-1 .demo-view-2 .box {
-  display: inline-block;
-  margin: 0 2px;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #c92a2a;
-  background: #f03e3e;
-}
-.demo-1 .demo-view-2 .box {
-  margin-right: 6px;
-}
-.demo-1 .demo-view-2 .box:first-child {
-  margin-left: 0;
-}
-.demo-2 .box {
-  display: inline-block;
-  margin: 0;
-  width: 20px;
-  height: 20px;
-  border: 10px solid transparent;
-  background: #f03e3e;
-}
-.demo-2 .box:hover {
-  background: #ff6b6b;
-}
-.demo-2 .box {
-  margin-right: 10px;
-}
-.demo-3 .demo-view-1 .box {
-  display: inline-block;
-  margin: 0;
-  width: 30px;
-  height: 30px;
-  padding: 10px;
-  vertical-align: middle;
-  text-align: center;
-  border: 1px solid #c92a2a;
-  background: #f03e3e;
-  box-sizing: border-box;
-}
-.demo-3 .demo-view-1 .box {
   width: 40px;
   height: 40px;
+  border: 1px solid #228ae6;
+  background: #4dadf7;
 }
-.demo-3 .demo-view-2 .box {
+.rule-1 .rule-view-1 .box {
+  margin-right: 10px;
+}
+.rule-2 .box {
   display: inline-block;
   margin: 0;
-  width: 8px;
-  height: 8px;
+  width: 40px;
+  height: 40px;
+  border: 10px solid transparent;
+  background: #4dadf7;
+}
+.rule-2 .box:hover {
+  background: #228ae6;
+}
+.rule-2 .box {
+  margin-right: 10px;
+}
+.rule-3 .rule-view-1 .box {
+  display: inline-block;
+  margin: 0;
+  width: 50px;
+  height: 50px;
   padding: 10px;
   vertical-align: middle;
   text-align: center;
-  border: 1px solid #c92a2a;
-  background: #f03e3e;
+  border: 1px solid #228ae6;
+  background: #4dadf7;
+  box-sizing: border-box;
 }
-.demo-3 .demo-view-2 .box {
-  width: 18px;
-  height: 18px;
+.rule-3 .rule-view-1 .box {
+  width: 200px;
+  height: 200px;
 }
-.demo-4 .button {
+.rule-4 .button {
+  display: inline-block;
+  margin: 0;
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+  vertical-align: middle;
+  text-align: center;
+  color: #c92a2a;
+  cursor: pointer;
+  border: 2px solid currentColor;
+  background: transparent;
+  box-sizing: border-box;
+}
+.rule-4 .button {
+  color: #4dadf7;
+}
+.rule-4 .button:hover {
+  color: #228ae6;
+}
+.rule-5 .button {
   display: inline-block;
   margin: 0;
   width: 80px;
@@ -92,23 +83,7 @@
   background: transparent;
   box-sizing: border-box;
 }
-.demo-4 .button {
-  color: #0067ED;
-}
-.demo-5 .button {
-  display: inline-block;
-  margin: 0;
-  width: 80px;
-  height: 40px;
-  line-height: 40px;
-  vertical-align: middle;
-  text-align: center;
-  color: #c92a2a;
-  border: 2px solid currentColor;
-  background: transparent;
-  box-sizing: border-box;
-}
-.demo-5 .button {
+.rule-5 .button {
   color: #0067ED;
 }
 </style>
@@ -121,99 +96,37 @@
                 <div class="header-info">这篇文档总结了我们在开发组件库VHTML时候的一些心得体会，整理出了一个我们理想中的Best Practise。希望会对你的组件库开发有一定帮助。</div>
             </div><div class="module"><h2 id="">样式篇</h2>
 <h3 id="-2">所见即所得</h3>
-<div class="demo demo-1">
+<div class="rule rule-1">
+<blockquote>
 <p>一般情况下，<strong>组件所能看到的大小即是它的真实大小</strong>。尽量不要在组件上使用看不见的边界，例如在外部加入<code>margin</code>样式。</p>
 <p>这样做的好处是：从设计师的角度出发去设计你的代码，设计师给到的标注稿的间距标注一般不会考虑组件外部的透明边界。而组件的使用者（其他开发同学）可能不知道这样的边界的存在，就会造成一些返工。</p>
-<p>所以为了提高组件的易用性，一般推荐组件所能看到的大小即是它的真实大小。如下例子：</p>
-<pre class="hljs demo-code demo-code-1"><code><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+<p>所以为了提高组件的易用性，一般推荐组件所能看到的大小即是它的真实大小。</p>
+</blockquote>
+<pre class="hljs rule-code rule-code-1"><code><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"box"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"box"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"box"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet/less"</span>&gt;</span><span class="undefined">
-.demo-1 {
+.rule-1 {
     // 组件样式
-    .demo-view-1 .box {
+    .rule-view-1 .box {
         display: inline-block;
         margin: 0;
-        width: 20px;
-        height: 20px;
-        border: 1px solid #c92a2a;
-        background: #f03e3e;
+        width: 40px;
+        height: 40px;
+        border: 1px solid #228ae6;
+        background: #4dadf7;
     }
 
     // 使用组件时候的样式
-    .demo-view-1 .box {
+    .rule-view-1 .box {
         margin-right: 10px;
     }
 }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
 </code></pre>
-                    <div class="demo-view demo-view-1">
-                        
-        <div></div>
-        <script>
-(function () {
-    var DemoComponent = Vue.extend(function () {
-        var Template = function () {
-            var options = {
-                render: function () {
-                    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;
-                    return _c('div', {
-                        staticClass: "component"
-                    }, [[_c('span', {
-                        staticClass: "box"
-                    }), _vm._v(" "), _c('span', {
-                        staticClass: "box"
-                    }), _vm._v(" "), _c('span', {
-                        staticClass: "box"
-                    })]], 2);
-                },
-                staticRenderFns: []
-            };return options;
-        }();
-        var Component = function () {
-            return {};
-        }();
-        Component.render = Template.render;
-        Component.staticRenderFns = Template.staticRenderFns;
-        return Component;
-    }());
-    var scripts = document.getElementsByTagName('script');
-    var script = scripts[scripts.length - 1];
-    new DemoComponent().$mount(script.previousElementSibling);
-})();</script>
-    
-                    </div>
-                
-<pre class="hljs demo-code demo-code-2"><code><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"box"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"box"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"box"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet/less"</span>&gt;</span><span class="undefined">
-.demo-1 {
-    // 组件样式
-    .demo-view-2 .box {
-        display: inline-block;
-        margin: 0 2px;
-        width: 20px;
-        height: 20px;
-        border: 1px solid #c92a2a;
-        background: #f03e3e;
-    }
-
-    // 使用组件时候的样式
-    .demo-view-2 .box {
-        margin-right: 6px;
-    }
-    .demo-view-2 .box:first-child {
-        margin-left: 0;
-    }
-}
-</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
-</code></pre>
-                    <div class="demo-view demo-view-2">
+                    <div class="rule-view rule-view-1">
                         
         <div></div>
         <script>
@@ -251,26 +164,29 @@
                     </div>
                 
 </div>
-<div class="demo demo-2">
-<p>当然也会存在一些例外情况，比如说组件的鼠标响应区域比组件的实际展示区域要大。这时候我们推荐和设计师做好充分地沟通，确认标注稿之后要考虑到这些隐藏边界，或者根本不关心这些隐藏边界导致的几像素偏差。以简化组件使用者在使用此组件时候的难度。例子如下：</p>
-<pre class="hljs demo-code demo-code-1"><code><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+<div class="rule rule-2">
+<blockquote>
+<p>当然也会存在一些例外情况，比如说组件的鼠标响应区域比组件的实际展示区域要大。</p>
+<p>这时候我们推荐和设计师做好充分地沟通，确认设计稿中的标注要考虑到这些隐藏边界，或者设计师根本不关心这些隐藏边界导致的几像素偏差。以简化组件使用者在使用此组件时候的难度。</p>
+</blockquote>
+<pre class="hljs rule-code rule-code-1"><code><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"box"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"box"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"box"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="undefined">
-.demo-2 {
+.rule-2 {
     // 组件样式
     .box {
         display: inline-block;
         margin: 0;
-        width: 20px;
-        height: 20px;
+        width: 40px;
+        height: 40px;
         border: 10px solid transparent;
-        background: #f03e3e;
+        background: #4dadf7;
     }
     .box:hover {
-        background: #ff6b6b;
+        background: #228ae6;
     }
     // 使用组件时候的样式
     .box {
@@ -279,7 +195,7 @@
 }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
 </code></pre>
-                    <div class="demo-view demo-view-1">
+                    <div class="rule-view rule-view-1">
                         
         <div></div>
         <script>
@@ -318,36 +234,38 @@
                 
 </div>
 <h3 id="box-sizing">使用<code>box-sizing</code></h3>
-<div class="demo demo-3">
+<div class="rule rule-3">
+<blockquote>
 <p>组件的root节点样式优先使用<code>box-sizing:border-box;</code>，这样在组件外部就可以轻松控制组件的宽高。不需要考虑root节点的<code>border</code>和<code>padding</code>值。</p>
-<pre class="hljs demo-code demo-code-1"><code><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"box"</span>&gt;</span>40x40<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+</blockquote>
+<pre class="hljs rule-code rule-code-1"><code><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"box"</span>&gt;</span>200x200<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet/less"</span>&gt;</span><span class="undefined">
-.demo-3 {
+.rule-3 {
     // 组件样式
-    .demo-view-1 .box {
+    .rule-view-1 .box {
         display: inline-block;
         margin: 0;
-        width: 30px;
-        height: 30px;
+        width: 50px;
+        height: 50px;
         padding: 10px;
         vertical-align: middle;
         text-align: center;
-        border: 1px solid #c92a2a;
-        background: #f03e3e;
+        border: 1px solid #228ae6;
+        background: #4dadf7;
         box-sizing: border-box;
     }
 
     // 使用组件时候的样式
-    .demo-view-1 .box {
-        width: 40px;
-        height: 40px;
+    .rule-view-1 .box {
+        width: 200px;
+        height: 200px;
     }
 }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
 </code></pre>
-                    <div class="demo-view demo-view-1">
+                    <div class="rule-view rule-view-1">
                         
         <div></div>
         <script>
@@ -361,66 +279,7 @@
                         staticClass: "component"
                     }, [[_c('span', {
                         staticClass: "box"
-                    }, [_vm._v("40x40")])]], 2);
-                },
-                staticRenderFns: []
-            };return options;
-        }();
-        var Component = function () {
-            return {};
-        }();
-        Component.render = Template.render;
-        Component.staticRenderFns = Template.staticRenderFns;
-        return Component;
-    }());
-    var scripts = document.getElementsByTagName('script');
-    var script = scripts[scripts.length - 1];
-    new DemoComponent().$mount(script.previousElementSibling);
-})();</script>
-    
-                    </div>
-                
-<pre class="hljs demo-code demo-code-2"><code><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"box"</span>&gt;</span>40x40<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet/less"</span>&gt;</span><span class="undefined">
-.demo-3 {
-    // 组件样式
-    .demo-view-2 .box {
-        display: inline-block;
-        margin: 0;
-        width: 30px - 20px - 2px;
-        height: 30px - 20px - 2px;
-        padding: 10px;
-        vertical-align: middle;
-        text-align: center;
-        border: 1px solid #c92a2a;
-        background: #f03e3e;
-    }
-
-    // 使用组件时候的样式
-    .demo-view-2 .box {
-        width: 40px - 20px - 2px;
-        height: 40px - 20px - 2px;
-    }
-}
-</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
-</code></pre>
-                    <div class="demo-view demo-view-2">
-                        
-        <div></div>
-        <script>
-(function () {
-    var DemoComponent = Vue.extend(function () {
-        var Template = function () {
-            var options = {
-                render: function () {
-                    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;
-                    return _c('div', {
-                        staticClass: "component"
-                    }, [[_c('span', {
-                        staticClass: "box"
-                    }, [_vm._v("40x40")])]], 2);
+                    }, [_vm._v("200x200")])]], 2);
                 },
                 staticRenderFns: []
             };return options;
@@ -441,13 +300,15 @@
                 
 </div>
 <h3 id="currentcolor">使用<code>currentColor</code></h3>
-<div class="demo demo-4">
+<div class="rule rule-4">
+<blockquote>
 <p>如果组件颜色较为单一，可以使用<code>currentColor</code>来设置颜色。这样在组件外部就可以通过<code>color</code>属性来轻松控制组件的颜色</p>
-<pre class="hljs demo-code demo-code-1"><code><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+</blockquote>
+<pre class="hljs rule-code rule-code-1"><code><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"button"</span>&gt;</span>按钮<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet/less"</span>&gt;</span><span class="undefined">
-.demo-4 {
+.rule-4 {
     // 组件样式
     .button {
         display: inline-block;
@@ -458,6 +319,7 @@
         vertical-align: middle;
         text-align: center;
         color: #c92a2a;
+        cursor: pointer;
         border: 2px solid currentColor;
         background: transparent;
         box-sizing: border-box;
@@ -465,12 +327,15 @@
 
     // 使用组件时候的样式
     .button {
-        color: #0067ED;
+        color: #4dadf7;
+    }
+    .button:hover {
+        color: #228ae6;
     }
 }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
 </code></pre>
-                    <div class="demo-view demo-view-1">
+                    <div class="rule-view rule-view-1">
                         
         <div></div>
         <script>
@@ -505,12 +370,12 @@
                 
 </div>
 <h3 id="-3">组件内部尽量自适应高宽</h3>
-<div class="demo demo-5">
-<p>组件的高宽很可能会被修改，此时如果组件内部是自适应变化的，那么就可以大大提高组件的易用性。组件的使用者在外部只需要通过CSS的<code>width</code>和<code>height</code>就可以方便的修改组件的高宽，通常会配合<code>box-sizing:border-box</code>一起使用。</p>
+<div class="rule rule-5">
 <blockquote>
+<p>组件的高宽很可能会被修改，此时如果组件内部是自适应变化的，那么就可以大大提高组件的易用性。组件的使用者在外部只需要通过CSS的<code>width</code>和<code>height</code>就可以方便的修改组件的高宽，通常会配合<code>box-sizing:border-box</code>一起使用。</p>
 <p>在开发组件时一定要把高宽变化的情况考虑在内，尽量做到组件内部自适应高宽。</p>
 </blockquote>
-<pre class="hljs demo-code demo-code-1"><code><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+<pre class="hljs rule-code rule-code-1"><code><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">input</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">input</span>&gt;</span>
@@ -518,7 +383,7 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet/less"</span>&gt;</span><span class="undefined">
-.demo-5 {
+.rule-5 {
     // 组件样式
     .button {
         display: inline-block;
@@ -541,7 +406,7 @@
 }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
 </code></pre>
-                    <div class="demo-view demo-view-1">
+                    <div class="rule-view rule-view-1">
                         
         <div></div>
         <script>
@@ -579,8 +444,11 @@
                 
 </div>
 <h3 id="css-rest">单个组件内CSS REST</h3>
+<div class="rule rule-6">
+<blockquote>
 <p>为了确保<strong>组件在各个页面下最终呈现的样子是一致的</strong>，需要对组件内CSS进行一定程度上的样式重置。我们推荐的重置方法如下：</p>
-<pre class="hljs demo-code demo-code-1"><code><span class="hljs-selector-class">.reset</span> {
+</blockquote>
+<pre class="hljs rule-code rule-code-1"><code><span class="hljs-selector-class">.reset</span> {
     <span class="hljs-attribute">display</span>: inline-block;      <span class="hljs-comment">// 或者 block，特殊情况下用inline</span>
     <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
     <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
@@ -652,10 +520,11 @@
     }
 }
 </code></pre>
-                    <div class="demo-view demo-view-1">
+                    <div class="rule-view rule-view-1">
                         
                     </div>
                 
+</div>
 </div><div class="module"><h2 id="javascript">Javascript篇</h2>
 </div><div class="module"><h2 id="vue">Vue篇</h2>
 </div>

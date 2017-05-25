@@ -5,6 +5,7 @@ body, div, p, h1, h2, h3, h4, h5, h6 {
 html, body {
     font: 16px/2 arial,sans-serif;
     color: #495057;
+    -webkit-font-smoothing: antialiased;
     background-color: #FFF;
 }
 @media (min-width: 1024px) {
@@ -131,32 +132,62 @@ img {
     box-sizing: border-box;
 }*/
 
-/* demo */
-.demo {
+/* rule */
+.rule {
     position: relative;
     padding: 0;
     border-top: 1px solid #dee2e6;
 }
-.demo > * {
+.rule::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.rule > * {
     padding: 0 2rem;
 }
-.demo > *:last-child {
+.rule > *:last-child {
     margin-bottom: 0;
 }
-.demo > pre {
-    padding: 1rem 2rem;
+.rule > blockquote {
+    float: left;
+    width: 50%;
     margin: 0;
+    padding: 0 2rem;
+    color: inherit;
+    border-left: none;
+    box-sizing: border-box;
+}
+.rule > pre {
+    float: right;
+    width: 50%;
+    margin: 0;
+    padding: 1rem 2rem;
     display: block;
     font-size: 0.75rem;
     line-height: 1.5;
-    border-top: 1px solid #dee2e6;
     box-sizing: border-box;
     background-color: #f1f3f5;
+    box-sizing: border-box;
 }
-.demo-view {
-    display: block;
-    border-bottom: 1px solid #dee2e6;
-    box-sizing: border-box;
-    background-color: #f1f3f5;
-    margin-bottom: 1rem;
+.rule-view {
+    position: relative;
+    clear: both;
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid #dee2e6;
+}
+.rule-view::before {
+    content: 'DEMO';
+    color: inherit;
+    position: absolute;
+    left: 0;
+    background: #dee2e6;
+    top: 0;
+    padding: 0 1rem;
+    font-size: 1rem;
+}
+.rule-view .component {
+    display: inline-block;
+    text-align: left;
 }

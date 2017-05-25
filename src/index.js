@@ -7,7 +7,6 @@ const through = require('through2');
 const compileVue = require('./compileVue');
 const less = require('less');
 
-
 const allStyles = [];
 let codeCount = 1;
 const md = new MarkdownIt({
@@ -15,8 +14,8 @@ const md = new MarkdownIt({
     highlight: function (str, lang) {
         if (lang && hljs.getLanguage(lang)) {
             try {
-                return `<pre class="hljs demo-code demo-code-${codeCount}"><code>${hljs.highlight(lang, str).value}</code></pre>
-                    <div class="demo-view demo-view-${codeCount++}">
+                return `<pre class="hljs rule-code rule-code-${codeCount}"><code>${hljs.highlight(lang, str).value}</code></pre>
+                    <div class="rule-view rule-view-${codeCount++}">
                         ${lang.toLowerCase() == 'html' ? compileVue(str, allStyles) : ''}
                     </div>
                 `;
@@ -27,16 +26,21 @@ const md = new MarkdownIt({
         return `<pre class="hljs"><code>${md.utils.escapeHtml(str)}</code></pre>`; // use external default escaping
     }
 });
-
+/*
+const oldFenceRule = md.renderer.rules.fence;
+md.renderer.rules.fence = function() {
+    return `<div class="rule-right">${oldFenceRule.apply(this, arguments)}</div>`;
+};
+*/
 md.use(require('markdown-it-anchor'), {});
 let count = 0;
-md.use(require('markdown-it-container'), 'DEMO', {
+md.use(require('markdown-it-container'), 'RULE', {
     render: function (tokens, idx) {
         // console.log(tokens[idx+1]);
         codeCount = 1
         if (tokens[idx].nesting === 1) {
             // opening tag
-            return `<div class="demo demo-${++count}">\n`;
+            return `<div class="rule rule-${++count}">\n`;
         }
         else {
             // closing tag
