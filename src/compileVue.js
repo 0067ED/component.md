@@ -32,7 +32,14 @@ module.exports = function compileVue(html, styles) {
     })());
     var scripts = document.getElementsByTagName('script');
     var script = scripts[scripts.length - 1];
-    new DemoComponent().$mount(script.previousElementSibling);
+    var ruleDemo = document.createElement('div');
+    ruleDemo.className = 'rule-demo';
+    var div = document.createElement('div');
+    ruleDemo.appendChild(div);
+    var textDiv = script.parentNode.previousElementSibling;
+    console.log()
+    textDiv.insertBefore(ruleDemo, textDiv.firstChild)
+    new DemoComponent().$mount(div);
 })();
 `;
 
@@ -41,7 +48,6 @@ module.exports = function compileVue(html, styles) {
         presets: ['es2016']
     });
     return `
-        <div></div>
         <script>${r.code}</script>
     `;
 }

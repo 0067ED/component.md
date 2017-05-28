@@ -136,6 +136,7 @@ img {
 .rule {
     position: relative;
     padding: 0;
+    overflow: hidden;
     border-top: 1px solid #dee2e6;
 }
 .rule::after {
@@ -143,41 +144,47 @@ img {
     display: table;
     clear: both;
 }
-.rule > * {
-    padding: 0 2rem;
-}
-.rule > *:last-child {
-    margin-bottom: 0;
-}
-.rule > blockquote {
-    float: left;
+.rule-right {
+    float: right;
     width: 50%;
+    background-color: #f1f3f5;
+}
+.rule-txt {
+    position: relative;
+    left: -100%;
+    float: left;
+    width: 100%;
     margin: 0;
     padding: 0 2rem;
     color: inherit;
     border-left: none;
     box-sizing: border-box;
 }
-.rule > pre {
+.rule-code {
+    margin-left: -100%;
     float: right;
-    width: 50%;
-    margin: 0;
+    width: 100%;
     padding: 1rem 2rem;
+    box-sizing: border-box;
+}
+.rule-code > pre {
+    margin: 0;
+    padding: 0;
     display: block;
     font-size: 0.75rem;
     line-height: 1.5;
     box-sizing: border-box;
-    background-color: #f1f3f5;
-    box-sizing: border-box;
+    background: transparent;
 }
-.rule-view {
+.rule-demo {
     position: relative;
     clear: both;
+    margin: 0 -2rem;
     padding: 3rem 2rem;
     text-align: center;
-    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
 }
-.rule-view::before {
+.rule-demo::before {
     content: 'DEMO';
     color: inherit;
     position: absolute;
@@ -187,7 +194,7 @@ img {
     padding: 0 1rem;
     font-size: 1rem;
 }
-.rule-view .component {
+.rule-demo .component {
     display: inline-block;
     text-align: left;
 }
