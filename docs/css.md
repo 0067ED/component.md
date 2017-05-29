@@ -178,7 +178,7 @@
 </template>
 <style>
 // 组件样式
-@component-namespace r6 {
+@component-namespace r5 {
     @b button {
         display: inline-block;
         margin: 0;

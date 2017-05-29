@@ -71,6 +71,7 @@ img {
     text-transform: uppercase;
     text-align: center;
     background-color: #f1f3f5;
+    border-top: 1px solid #dee2e6;
 }
 
 /* module h3 */
@@ -172,7 +173,7 @@ img {
     padding: 0;
     display: block;
     font-size: 0.75rem;
-    line-height: 1.5;
+    line-height: 1rem;
     box-sizing: border-box;
     background: transparent;
 }

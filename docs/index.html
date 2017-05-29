@@ -50,7 +50,7 @@
   width: 200px;
   height: 200px;
 }
-.r6-button {
+.r5-button {
   display: inline-block;
   margin: 0;
   padding: 9px 0;
@@ -66,7 +66,7 @@
   background: transparent;
   box-sizing: border-box;
 }
-.r6-button svg {
+.r5-button svg {
   color: inherit;
   fill: currentColor;
   width: 16px;
@@ -393,7 +393,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="undefined">
 // 组件样式
-@component-namespace r6 {
+@component-namespace r5 {
     @b button {
         display: inline-block;
         margin: 0;
@@ -703,6 +703,242 @@
                 
 </div></div></div>
 </div><div class="module"><h2 id="javascript">Javascript篇</h2>
+<h3 id="constlet">使用<code>const</code>和<code>let</code></h3>
+<div class="rule rule-8">
+                        <div class="rule-right">
+                        <div class="rule-txt"><p>ES6 现在支持了<code>const</code>和<code>let</code>关键字，相比<code>var</code>它们支持了块级作用域。并且<code>const</code>用于常量的声明，<code>let</code>用于变量的声明。它们本身有更加明确的用途，对代码的可读性也有一定的提高。</p>
+</div><div class="rule-code"><pre class="hljs"><code><span class="hljs-comment">// 错误例子1</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getValueByCode</span>(<span class="hljs-params">code</span>) </span>{
+    <span class="hljs-keyword">var</span> VALUE_MAP = {
+        <span class="hljs-number">200</span>: <span class="hljs-string">'success'</span>,
+        <span class="hljs-number">300</span>: <span class="hljs-string">'REDIRECT'</span>,
+        <span class="hljs-number">400</span>: <span class="hljs-string">'CLIENT ERROR'</span>,
+        <span class="hljs-number">500</span>: <span class="hljs-string">'SERVER ERROR'</span>
+    };
+    <span class="hljs-keyword">return</span> VALUE_MAP[code];
+}
+<span class="hljs-comment">// 正确例子1</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getValueByCode</span>(<span class="hljs-params">code</span>) </span>{
+    <span class="hljs-keyword">const</span> VALUE_MAP = {
+        <span class="hljs-number">200</span>: <span class="hljs-string">'success'</span>,
+        <span class="hljs-number">300</span>: <span class="hljs-string">'REDIRECT'</span>,
+        <span class="hljs-number">400</span>: <span class="hljs-string">'CLIENT ERROR'</span>,
+        <span class="hljs-number">500</span>: <span class="hljs-string">'SERVER ERROR'</span>
+    };
+    <span class="hljs-keyword">return</span> VALUE_MAP[code];
+}
+
+
+<span class="hljs-comment">// 错误例子2</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAncestor</span>(<span class="hljs-params">component, ancestorName</span>) </span>{
+    <span class="hljs-keyword">var</span> parent = component.$parent;
+    <span class="hljs-keyword">while</span> (parent.$options.name !== ancestorName) {
+        parent = parent.$parent;
+    }
+    <span class="hljs-keyword">return</span> parent;
+}
+<span class="hljs-comment">// 正确例子2</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAncestor</span>(<span class="hljs-params">component, ancestorName</span>) </span>{
+    <span class="hljs-keyword">let</span> parent = component.$parent;
+    <span class="hljs-keyword">while</span> (parent.$options.name !== ancestorName) {
+        parent = parent.$parent;
+    }
+    <span class="hljs-keyword">return</span> parent;
+}
+</code></pre>
+                        
+                
+</div></div></div>
+<h3 id="else">减少使用<code>else</code>关键字</h3>
+<div class="rule rule-9">
+                        <div class="rule-right">
+                        <div class="rule-txt"><p>我们在编写javascript代码时，会经常用到<code>if else</code>来处理分支逻辑。当分支逻辑只有两层时，这不是什么问题。但当分支逻辑越来越多时，就会出现很多层的<code>if else</code>嵌套。这会大大降低代码的可读性。</p>
+<p>推荐按照如下规则来尽量减少<code>else</code>关键字的使用：</p>
+<ul>
+<li>如果代码逻辑有两个以上的分支
+<ul>
+<li>如果代码逻辑简单只是返回对应值的匹配值，则推荐使用字典对象；</li>
+<li>如果只有一条分支逻辑负责其余都很简单，则推荐使用<code>if return</code>；</li>
+<li>如果有两条以上分支逻辑复杂，推荐使用<code>switch</code>关键字（如果分支逻辑非常复杂推荐）；</li>
+</ul>
+</li>
+<li>如果代码逻辑只有两个分支
+<ul>
+<li>如果分支逻辑简单，则优先尝试使用条件运算符；</li>
+<li>如果分支逻辑复杂，则推荐使用<code>if return</code>；</li>
+</ul>
+</li>
+</ul>
+<p>PS：在代码逻辑只有两个分支并且使用<code>if return</code>时，推荐把简单的分支逻辑立即先<code>return</code>掉。把复杂的逻辑放在后面，这样复杂逻辑的缩进会少。代码的可读性会进一步提高。</p>
+</div><div class="rule-code"><pre class="hljs"><code><span class="hljs-comment">// 错误样例1：两个分支，且逻辑简单</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasValue</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">if</span> (value &amp;&amp; (value.length != <span class="hljs-literal">null</span>)) {
+        <span class="hljs-keyword">return</span> !!value.length;
+    }
+    <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> !!value;
+    }
+}
+<span class="hljs-comment">// 正确样例1：使用条件运算符</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasValue</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-comment">// 增加一个有意义的变量名，提高代码可读性</span>
+    <span class="hljs-keyword">const</span> isStringOrArray = value &amp;&amp; (value.length != <span class="hljs-literal">null</span>);
+    <span class="hljs-keyword">return</span> !!(isStringOrArray ? value.length : value);
+}
+
+
+<span class="hljs-comment">// 错误样例2：两个以上分支，且逻辑简单</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getType</span>(<span class="hljs-params">code</span>) </span>{
+    <span class="hljs-keyword">if</span> (code === <span class="hljs-number">1</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'success'</span>;
+    }
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (code === <span class="hljs-number">2</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'client error'</span>;
+    }
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (code === <span class="hljs-number">3</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'server error'</span>;
+    }
+    <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'unknown error'</span>;
+    }
+}
+<span class="hljs-comment">// 正确样例2</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getType</span>(<span class="hljs-params">code</span>) </span>{
+    <span class="hljs-comment">// 此样例中也可以使用数组来做map，不过对象支持更普遍一些</span>
+    <span class="hljs-keyword">const</span> CODE_MAP = {
+        <span class="hljs-number">1</span>: <span class="hljs-string">'success'</span>,
+        <span class="hljs-number">2</span>: <span class="hljs-string">'client error'</span>,
+        <span class="hljs-number">3</span>: <span class="hljs-string">'server error'</span>
+    };
+    <span class="hljs-keyword">return</span> CODE_MAP[code] || <span class="hljs-string">'unknown error'</span>;
+}
+
+
+<span class="hljs-comment">// 错误样例3：两个分支，且只有一个分支逻辑复杂</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getConfig</span>(<span class="hljs-params">id, callback</span>) </span>{
+    <span class="hljs-keyword">if</span> (id != <span class="hljs-literal">null</span>) {
+        <span class="hljs-keyword">const</span> params = {
+            <span class="hljs-comment">// TODO calculate params</span>
+        };
+        $.post(<span class="hljs-string">'/config'</span>, params, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
+            <span class="hljs-keyword">if</span> (data.success) {
+                callback(data.data);
+            }
+            <span class="hljs-keyword">else</span> {
+                callback(<span class="hljs-literal">null</span>);
+            }
+        });
+    }
+    <span class="hljs-keyword">else</span> {
+        callback(<span class="hljs-literal">null</span>);
+    }
+}
+<span class="hljs-comment">// 正确样例3</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getConfig</span>(<span class="hljs-params">id, callback</span>) </span>{
+    <span class="hljs-keyword">if</span> (id == <span class="hljs-literal">null</span>) {
+        callback(<span class="hljs-literal">null</span>);
+        <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">const</span> params = {
+        <span class="hljs-comment">// TODO calculate params</span>
+    };
+    $.post(<span class="hljs-string">'/config'</span>, params, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
+        callback(data.success ? data.data : <span class="hljs-literal">null</span>);
+    });
+}
+
+
+<span class="hljs-comment">// 错误样例4：两个以上分支，且有多个分支逻辑复杂</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">calc</span>(<span class="hljs-params">position, relative</span>) </span>{
+    <span class="hljs-keyword">if</span> (position === <span class="hljs-string">'top'</span> || position === <span class="hljs-string">'bottom'</span>) {
+        calcVertical(relative);
+    }
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (position === <span class="hljs-string">'left'</span> || position === <span class="hljs-string">'right'</span>) {
+        calcHorizontal(relative);
+    }
+    <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">// TODO</span>
+    }
+}
+<span class="hljs-comment">// 正确样例4</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">calc</span>(<span class="hljs-params">position, relative</span>) </span>{
+    <span class="hljs-keyword">switch</span> (position) {
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'top'</span>:
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'bottom'</span>:
+            calcVertical(relative);
+            <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'left'</span>:
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'right'</span>:
+            calcHorizontal(relative);
+            <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">default</span>:
+            <span class="hljs-comment">// TODO</span>
+            <span class="hljs-keyword">break</span>;
+    }
+}
+</code></pre>
+                        
+                
+</div></div></div>
+<h3 id="mapfilterreducefor">使用<code>map/filter/reduce</code>替代<code>for</code>循环</h3>
+<div class="rule rule-10">
+                        <div class="rule-right">
+                        <div class="rule-txt"><p>在ES5之前，我们操作Javascript数组的常用方式是使用<code>for</code>循环。这是一种传统且非常高效的做法。在ES5之后，Javascript的数组引入了很多的原生方法，例如<code>Array.prototype.forEach</code>方法。这些特性的支持程度可以看<a href="http://kangax.github.io/compat-table/es5/">这个表</a>。</p>
+<p>于是大家开始争论使用<code>for</code>循环还是<code>forEach</code>方法，甚至有人做了<a href="https://jsperf.com/for-vs-foreach/75">性能对比</a>。<code>for</code>循环的优势在于：性能好，并且能够通过<code>break</code>关键字快速退出。 <code>forEach</code>方法的优势在于：可读性高，易于使用（天然带有闭包）。</p>
+<p>这里要说的不是<code>for</code>循环 VS <code>forEach</code>方法，而是<code>for</code>循环 VS <code>map/filter/reduce</code>方法。通过下面这张图你可以清楚地知道它们的作用。</p>
+<p><a href="https://twitter.com/apasella/status/741168882958880768"><img src="./static/map_filter_reduce.png" alt=""></a></p>
+<p>虽然<code>for</code>循环有着更好的性能，但是只要不是超大型数组，性能优势并不明显。相反<code>map/filter/reduce</code>方法却可以大大提高代码的可读性，所以更推荐使用他们。</p>
+</div><div class="rule-code"><pre class="hljs"><code><span class="hljs-comment">// 错误例子1</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getValues</span>(<span class="hljs-params">opts</span>) </span>{
+    <span class="hljs-keyword">const</span> values = [];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; opts.length; i++) {
+        values.push(opts[i].value);
+    }
+    <span class="hljs-keyword">return</span> values;
+}
+<span class="hljs-comment">// 正确例子1</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getValues</span>(<span class="hljs-params">opts</span>) </span>{
+    <span class="hljs-keyword">return</span> opts.map(<span class="hljs-function">(<span class="hljs-params">opt</span>) =&gt;</span> opt.value);
+}
+
+
+<span class="hljs-comment">// 错误例子2</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getSelectedOptions</span>(<span class="hljs-params">opts</span>) </span>{
+    <span class="hljs-keyword">const</span> selectedOpts = [];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; opts.length; i++) {
+        <span class="hljs-keyword">if</span> (opts[i].selected) {
+            selectedOpts.push(opts[i]);
+        }
+    }
+    <span class="hljs-keyword">return</span> selectedOpts;
+}
+<span class="hljs-comment">// 正确例子2</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getSelectedOptions</span>(<span class="hljs-params">opts</span>) </span>{
+    <span class="hljs-keyword">return</span> opts.filter(<span class="hljs-function">(<span class="hljs-params">opt</span>) =&gt;</span> opt.selected);
+}
+
+
+<span class="hljs-comment">// 错误例子3</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sumSelectedValue</span>(<span class="hljs-params">opts</span>) </span>{
+    <span class="hljs-keyword">let</span> sum = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; opts.length; i++) {
+        <span class="hljs-keyword">if</span> (opts[i].selected) {
+            sum += opts[i].value;
+        }
+    }
+    <span class="hljs-keyword">return</span> sum;
+}
+<span class="hljs-comment">// 正确例子3</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sumSelectedValue</span>(<span class="hljs-params">opts</span>) </span>{
+    <span class="hljs-keyword">return</span> opts
+        .filter(<span class="hljs-function">(<span class="hljs-params">opt</span>) =&gt;</span> opt.selected)
+        .reduce(<span class="hljs-function">(<span class="hljs-params">result, opt</span>) =&gt;</span> result + opt.value, <span class="hljs-number">0</span>);
+}
+</code></pre>
+                        
+                
+</div></div></div>
 </div><div class="module"><h2 id="vue">Vue篇</h2>
 </div>
         </div>
