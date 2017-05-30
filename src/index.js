@@ -61,7 +61,7 @@ const HEADER_HTML = `<!DOCTYPE html>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>前端组件开发规范</title>
+        <title>前端组件开发心得</title>
         <link rel="stylesheet" href="./static/tomorrow.css">
         <link rel="stylesheet" href="./static/doc.css">
         <script src="//unpkg.com/vue@2.3.3"></script>
@@ -71,8 +71,12 @@ const HEADER_HTML = `<!DOCTYPE html>
         {beforeHTML}
         <div class="main">
             <div class="header">
-                <h1>前端组件开发规范</h1>
-                <div class="header-info">这篇文档总结了我们在开发组件库VHTML时候的一些心得体会，整理出了一个我们理想中的Best Practise。希望会对你的组件库开发有一定帮助。</div>
+                <h1>前端组件开发心得</h1>
+                <div class="header-info">
+                    <p>这篇文档总结了一些前端组件的开发心得，整理出了一个我们理想中的Best Practise。</p>
+                    <p>它更多的是Vue相关的内容，如果你有其他库（React，Angular）的心得也可以发Merge Request来提交。</p>
+                    <p>希望会对你的组件库开发有一定帮助。</p>
+                </div>
             </div>`;
 const FOOTER_HTML = `
         </div>

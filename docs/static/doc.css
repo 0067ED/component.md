@@ -10,7 +10,7 @@ html, body {
 }
 @media (min-width: 1024px) {
     html, body {
-        font-size: 24px;
+        font-size: 20px;
     }
 }
 code {
