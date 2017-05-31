@@ -56,17 +56,22 @@
     .box {
         display: inline-block;
         margin: 0;
+        padding: 5px;
+    }
+    .box::after {
+        content: '';
+        display: block;
         width: 40px;
         height: 40px;
-        border: 10px solid transparent;
         background: #4dadf7;
+        border: 1px solid #228ae6;
     }
-    .box:hover {
+    .box:hover::after {
         background: #228ae6;
     }
     // 使用组件时候的样式
     .box {
-        margin-right: 10px;
+        margin-right: 10px - 5px * 2;
     }
 }
 </style>
