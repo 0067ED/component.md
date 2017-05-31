@@ -107,9 +107,10 @@ function run(options) {
                         return;
                     }
 
+                    console.log();
                     try {
                         files.push(Buffer.concat([
-                            new Buffer('<div class="module">'),
+                            new Buffer(`<div class="module module-${file.stem.trim()}">`),
                             new Buffer(md.render(file.contents.toString())),
                             new Buffer('</div>')
                         ]));

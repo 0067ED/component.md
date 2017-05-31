@@ -18,7 +18,7 @@
     <span class="box"></span>
 </template>
 <style>
-.rule-1 {
+.module-css .rule-1 {
     // 组件样式
     .rule-demo .box {
         display: inline-block;
@@ -51,7 +51,7 @@
     <span class="box"></span>
 </template>
 <style>
-.rule-2 {
+.module-css .rule-2 {
     // 组件样式
     .box {
         display: inline-block;
@@ -91,7 +91,7 @@
     <span class="box">200x200</span>
 </template>
 <style>
-.rule-3 {
+.module-css .rule-3 {
     // 组件样式
     .rule-demo .box {
         display: inline-block;
@@ -166,7 +166,7 @@
 
 ```html
 <template>
-    <span class="r5-button">
+    <span class="x-button">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         width="24px" height="24px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
             <g>
@@ -183,7 +183,7 @@
 </template>
 <style>
 // 组件样式
-@component-namespace r5 {
+@component-namespace x {
     @b button {
         display: inline-block;
         margin: 0;
@@ -211,9 +211,9 @@
     }
 }
 
-.rule-5 {
+.module-css .rule-5 {
     // 使用组件时候的样式
-    .r5-button {
+    .x-button {
         color: #4dadf7;
 
         &:hover {
@@ -237,7 +237,7 @@
 
 ```html
 <template>
-    <span class="r6-input">
+    <span class="x-input x-input--search">
         <svg version="1.1" x="0px" y="0px"
         width="20px" height="20px" viewBox="0 0 20 20" xml:space="preserve">
         <path style="fill-rule:evenodd;clip-rule:evenodd;" d="M17.696,16.227l-2.531-2.532c2.5-2.748,2.431-6.999-0.223-9.653
@@ -245,16 +245,16 @@
         c0.406,0.406,1.063,0.406,1.469,0S18.102,16.633,17.696,16.227z M6.457,12.527c-1.953-1.952-1.953-5.118,0-7.071
         s5.118-1.953,7.071,0c1.952,1.953,1.952,5.119,0,7.071C11.575,14.48,8.409,14.48,6.457,12.527z"/>
         </svg>
-        <input class="r6-input__txt"></input>
+        <input class="x-input__txt"></input>
     </span>
 </template>
 <style>
 // 组件样式
-@component-namespace r6 {
+@component-namespace x {
     @b input {
         display: inline-block;
         margin: 0;
-        padding-left: 40px;
+        padding: 0 10px;
         width: 400px;
         height: 40px;
         line-height: 40px;
@@ -264,6 +264,10 @@
         border: 2px solid currentColor;
         background: #FFF;
         box-sizing: border-box;
+
+        @m search {
+            padding-left: 40px;
+        }
 
         svg {
             margin: 8px 0 0 -30px;
@@ -287,9 +291,9 @@
     }
 }
 
-.rule-6 {
+.module-css .rule-6 {
     // 使用组件时候的样式
-    .r6-input {
+    .x-input {
         width: 300px;
     }
 }
