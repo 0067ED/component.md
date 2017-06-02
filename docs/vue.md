@@ -28,21 +28,23 @@ Vue 的`props`和`data`配置有点相似，但又完全不一样。**`props`其
 这里会有一个死循环在内部，但是由于Vue的watch机制是在值发生变化（===）时才触发回调，所以不存在问题。所以你需要确保一个状态不应该有多个不同的引用值。
 
 ```html
+<!-- x-container -->
 <template>
     <x-input name="username" v-model="inputValue"></x-input>
-    <p>{{inputValue}}</p>
+    <div>{{inputValue}}</div>
 </template>
 <script>
     export default {
         name: 'XContainer',
         data() {
             return {
-                inputValue: 'xxx'
+                inputValue: '输入框文字'
             };
         }
     }
 </script>
 
+<!-- x-input -->
 <template>
     <span class="x-input">
         <input class="x-input__txt" :name="name" v-model="currentValue"></input>

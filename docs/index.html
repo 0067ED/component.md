@@ -167,24 +167,30 @@
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
 </code></pre>
                         
-        <script>
+            <script>'use strict';
+
 (function () {
+    var tmp = void 0;
+
     var DemoComponent = Vue.extend(function () {
         var Template = function () {
             var options = {
-                render: function () {
+                render: function render() {
+                    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;
+                    return _vm._m(0);
+                },
+                staticRenderFns: [function () {
                     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;
                     return _c('div', {
                         staticClass: "component"
-                    }, [[_c('span', {
+                    }, [_c('span', {
                         staticClass: "box"
                     }), _vm._v(" "), _c('span', {
                         staticClass: "box"
                     }), _vm._v(" "), _c('span', {
                         staticClass: "box"
-                    })]], 2);
-                },
-                staticRenderFns: []
+                    })]);
+                }]
             };return options;
         }();
         var Component = function () {
@@ -201,11 +207,10 @@
     var div = document.createElement('div');
     ruleDemo.appendChild(div);
     var textDiv = script.parentNode.previousElementSibling;
-    console.log();
     textDiv.insertBefore(ruleDemo, textDiv.firstChild);
     new DemoComponent().$mount(div);
 })();</script>
-    
+        
                 
 </div></div></div>
 <div class="rule rule-2">
@@ -244,24 +249,30 @@
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
 </code></pre>
                         
-        <script>
+            <script>'use strict';
+
 (function () {
+    var tmp = void 0;
+
     var DemoComponent = Vue.extend(function () {
         var Template = function () {
             var options = {
-                render: function () {
+                render: function render() {
+                    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;
+                    return _vm._m(0);
+                },
+                staticRenderFns: [function () {
                     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;
                     return _c('div', {
                         staticClass: "component"
-                    }, [[_c('span', {
+                    }, [_c('span', {
                         staticClass: "box"
                     }), _vm._v(" "), _c('span', {
                         staticClass: "box"
                     }), _vm._v(" "), _c('span', {
                         staticClass: "box"
-                    })]], 2);
-                },
-                staticRenderFns: []
+                    })]);
+                }]
             };return options;
         }();
         var Component = function () {
@@ -278,11 +289,10 @@
     var div = document.createElement('div');
     ruleDemo.appendChild(div);
     var textDiv = script.parentNode.previousElementSibling;
-    console.log();
     textDiv.insertBefore(ruleDemo, textDiv.firstChild);
     new DemoComponent().$mount(div);
 })();</script>
-    
+        
                 
 </div></div></div>
 <h3 id="box-sizing">使用<code>box-sizing</code></h3>
@@ -317,20 +327,26 @@
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
 </code></pre>
                         
-        <script>
+            <script>'use strict';
+
 (function () {
+    var tmp = void 0;
+
     var DemoComponent = Vue.extend(function () {
         var Template = function () {
             var options = {
-                render: function () {
+                render: function render() {
+                    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;
+                    return _vm._m(0);
+                },
+                staticRenderFns: [function () {
                     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;
                     return _c('div', {
                         staticClass: "component"
-                    }, [[_c('span', {
+                    }, [_c('span', {
                         staticClass: "box"
-                    }, [_vm._v("200x200")])]], 2);
-                },
-                staticRenderFns: []
+                    }, [_vm._v("200x200")])]);
+                }]
             };return options;
         }();
         var Component = function () {
@@ -347,11 +363,10 @@
     var div = document.createElement('div');
     ruleDemo.appendChild(div);
     var textDiv = script.parentNode.previousElementSibling;
-    console.log();
     textDiv.insertBefore(ruleDemo, textDiv.firstChild);
     new DemoComponent().$mount(div);
 })();</script>
-    
+        
                 
 </div></div></div>
 <h3 id="css">避免CSS类选择器冲突</h3>
@@ -451,16 +466,19 @@
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
 </code></pre>
                         
-        <script>
+            <script>'use strict';
+
 (function () {
+    var tmp = void 0;
+
     var DemoComponent = Vue.extend(function () {
         var Template = function () {
             var options = {
-                render: function () {
+                render: function render() {
                     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;
                     return _c('div', {
                         staticClass: "component"
-                    }, [[_c('span', {
+                    }, [_c('span', {
                         staticClass: "x-button"
                     }, [_c('svg', {
                         staticStyle: {
@@ -490,7 +508,7 @@
                         attrs: {
                             "d": "M12.5,16h-1c-0.276,0-0.5,0.225-0.5,0.5v1c0,0.275,0.224,0.5,0.5,0.5h1c0.275,0,0.5-0.225,0.5-0.5\n                v-1C13,16.225,12.775,16,12.5,16z"
                         }
-                    })])]), _vm._v("\n        按钮\n    ")])]], 2);
+                    })])]), _vm._v("\n        按钮\n    ")])]);
                 },
                 staticRenderFns: []
             };return options;
@@ -509,11 +527,10 @@
     var div = document.createElement('div');
     ruleDemo.appendChild(div);
     var textDiv = script.parentNode.previousElementSibling;
-    console.log();
     textDiv.insertBefore(ruleDemo, textDiv.firstChild);
     new DemoComponent().$mount(div);
 })();</script>
-    
+        
                 
 </div></div></div>
 <h3 id="-3">组件尽量自适应高宽</h3>
@@ -585,16 +602,19 @@
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
 </code></pre>
                         
-        <script>
+            <script>'use strict';
+
 (function () {
+    var tmp = void 0;
+
     var DemoComponent = Vue.extend(function () {
         var Template = function () {
             var options = {
-                render: function () {
+                render: function render() {
                     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;
                     return _c('div', {
                         staticClass: "component"
-                    }, [[_c('span', {
+                    }, [_c('span', {
                         staticClass: "x-input x-input--search"
                     }, [_c('svg', {
                         attrs: {
@@ -616,7 +636,7 @@
                         }
                     })]), _vm._v(" "), _c('input', {
                         staticClass: "x-input__txt"
-                    })])]], 2);
+                    })])]);
                 },
                 staticRenderFns: []
             };return options;
@@ -635,11 +655,10 @@
     var div = document.createElement('div');
     ruleDemo.appendChild(div);
     var textDiv = script.parentNode.previousElementSibling;
-    console.log();
     textDiv.insertBefore(ruleDemo, textDiv.firstChild);
     new DemoComponent().$mount(div);
 })();</script>
-    
+        
                 
 </div></div></div>
 <h3 id="css-rest">单个组件内CSS REST</h3>
@@ -981,49 +1000,173 @@
 <p><img src="./static/vue_props_data.png" alt=""></p>
 <p>绿色为组件实例，蓝色为<code>props</code>，黄色为<code>data</code>。初始化时<code>currentValue</code>的值会被赋值为<code>value</code>的值，并watch <code>value</code>值变化，如果外部修改<code>inputValue</code>则会立即更新<code>currentValue</code>。如果用户输入，则会更新<code>currentValue</code>并触发<code>input</code>事件然后通知<code>inputValue</code>新的值。</p>
 <p>这里会有一个死循环在内部，但是由于Vue的watch机制是在值发生变化（===）时才触发回调，所以不存在问题。所以你需要确保一个状态不应该有多个不同的引用值。</p>
-</div><div class="rule-code"><pre class="hljs"><code>&lt;template&gt;
-    &lt;x-input name=&quot;username&quot; v-model=&quot;inputValue&quot;&gt;&lt;/x-input&gt;
-    &lt;p&gt;{{inputValue}}&lt;/p&gt;
-&lt;/template&gt;
-&lt;script&gt;
-    export default {
-        name: 'XContainer',
+</div><div class="rule-code"><pre class="hljs"><code><span class="hljs-comment">&lt;!-- x-container --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"username"</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"inputValue"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-input</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{{inputValue}}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+        <span class="hljs-attr">name</span>: <span class="hljs-string">'XContainer'</span>,
         data() {
-            return {
-                inputValue: 'xxx'
+            <span class="hljs-keyword">return</span> {
+                <span class="hljs-attr">inputValue</span>: <span class="hljs-string">'输入框文字'</span>
             };
         }
     }
-&lt;/script&gt;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 
-&lt;template&gt;
-    &lt;span class=&quot;x-input&quot;&gt;
-        &lt;input class=&quot;x-input__txt&quot; :name=&quot;name&quot; v-model=&quot;currentValue&quot;&gt;&lt;/input&gt;
-    &lt;/span&gt;
-&lt;/template&gt;
-&lt;script&gt;
-    export default {
-        name: 'XInput',
-        props: {
-            name: String,
-            value: [String, Number]
+<span class="hljs-comment">&lt;!-- x-input --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"x-input"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"x-input__txt"</span> <span class="hljs-attr">:name</span>=<span class="hljs-string">"name"</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"currentValue"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">input</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+        <span class="hljs-attr">name</span>: <span class="hljs-string">'XInput'</span>,
+        <span class="hljs-attr">props</span>: {
+            <span class="hljs-attr">name</span>: <span class="hljs-built_in">String</span>,
+            <span class="hljs-attr">value</span>: [<span class="hljs-built_in">String</span>, <span class="hljs-built_in">Number</span>]
         },
         data() {
-            return {
-                currentValue: this.value
+            <span class="hljs-keyword">return</span> {
+                <span class="hljs-attr">currentValue</span>: <span class="hljs-keyword">this</span>.value
             };
         },
-        watch: {
+        <span class="hljs-attr">watch</span>: {
             value(nextValue) {
-                this.currentValue = nextValue;
+                <span class="hljs-keyword">this</span>.currentValue = nextValue;
             },
             currentValue(nextValue) {
-                this.$emit('input', nextValue);
+                <span class="hljs-keyword">this</span>.$emit(<span class="hljs-string">'input'</span>, nextValue);
             }
         }
     }
-&lt;/script&gt;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
+                        
+            <script>'use strict';
+
+(function () {
+    var tmp = void 0;
+
+    tmp = function () {
+        var Template = function () {
+            var options = {
+                render: function render() {
+                    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;
+                    return _c('div', {
+                        staticClass: "component"
+                    }, [_c('span', {
+                        staticClass: "x-input"
+                    }, [_c('input', {
+                        directives: [{
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.currentValue,
+                            expression: "currentValue"
+                        }],
+                        staticClass: "x-input__txt",
+                        attrs: {
+                            "name": _vm.name
+                        },
+                        domProps: {
+                            "value": _vm.currentValue
+                        },
+                        on: {
+                            "input": function input($event) {
+                                if ($event.target.composing) {
+                                    return;
+                                }
+                                _vm.currentValue = $event.target.value;
+                            }
+                        }
+                    })])]);
+                },
+                staticRenderFns: []
+            };return options;
+        }();
+        var Component = function () {
+
+            return {
+                name: 'XInput',
+                props: {
+                    name: String,
+                    value: [String, Number]
+                },
+                data: function data() {
+                    return {
+                        currentValue: this.value
+                    };
+                },
+
+                watch: {
+                    value: function value(nextValue) {
+                        this.currentValue = nextValue;
+                    },
+                    currentValue: function currentValue(nextValue) {
+                        this.$emit('input', nextValue);
+                    }
+                }
+            };
+        }();
+        Component.render = Template.render;
+        Component.staticRenderFns = Template.staticRenderFns;
+        return Component;
+    }();
+    Vue.component(tmp.name, tmp);
+
+    var DemoComponent = Vue.extend(function () {
+        var Template = function () {
+            var options = {
+                render: function render() {
+                    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;
+                    return _c('div', {
+                        staticClass: "component"
+                    }, [_c('x-input', {
+                        attrs: {
+                            "name": "username"
+                        },
+                        model: {
+                            value: _vm.inputValue,
+                            callback: function callback($$v) {
+                                _vm.inputValue = $$v;
+                            },
+                            expression: "inputValue"
+                        }
+                    }), _vm._v(" "), _c('div', [_vm._v(_vm._s(_vm.inputValue))])], 1);
+                },
+                staticRenderFns: []
+            };return options;
+        }();
+        var Component = function () {
+
+            return {
+                name: 'XContainer',
+                data: function data() {
+                    return {
+                        inputValue: '输入框文字'
+                    };
+                }
+            };
+        }();
+        Component.render = Template.render;
+        Component.staticRenderFns = Template.staticRenderFns;
+        return Component;
+    }());
+    var scripts = document.getElementsByTagName('script');
+    var script = scripts[scripts.length - 1];
+    var ruleDemo = document.createElement('div');
+    ruleDemo.className = 'rule-demo';
+    var div = document.createElement('div');
+    ruleDemo.appendChild(div);
+    var textDiv = script.parentNode.previousElementSibling;
+    textDiv.insertBefore(ruleDemo, textDiv.firstChild);
+    new DemoComponent().$mount(div);
+})();</script>
+        
+                
 </div></div></div>
 </div>
         </div>
