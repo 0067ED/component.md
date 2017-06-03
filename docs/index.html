@@ -980,8 +980,51 @@
                 
 </div></div></div>
 </div><div class="module module-vue"><h2 id="vue">Vue篇</h2>
-<h3 id="propsdata"><code>props</code>和<code>data</code></h3>
+<h3 id="v-bindv-on">使用<code>v-bind</code>和<code>v-on</code>的快捷方法</h3>
 <div class="rule rule-11">
+                        <div class="rule-right">
+                        <div class="rule-txt"><p>Vue 为<code>v-bind</code>和<code>v-on</code>指令提供了两个快捷方法，虽然这看起来和普通的HTML风格不一样，但是<code>:</code>和<code>@</code>字符也是可以作为HTML属性名的。</p>
+<p>推荐优先使用它们，这可以大大提高写代码的速度以及代码的可读性。</p>
+</div><div class="rule-code"><pre class="hljs"><code><span class="hljs-comment">&lt;!-- 错误例子1 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">"doSomething"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- 正确例子1 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"doSomething"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- 错误例子2 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">v-bind:href</span>=<span class="hljs-string">"url"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- 正确例子2 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">:href</span>=<span class="hljs-string">"url"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</code></pre>
+                        
+                
+</div></div></div>
+<h3 id="props">简化<code>props</code>的类型</h3>
+<div class="rule rule-12">
+                        <div class="rule-right">
+                        <div class="rule-txt"><p>Vue组件的<code>props</code>是其最重要的对外API，推荐在设计这些<code>props</code>时尽量确保它们的类型简化，不要使用一个非常复杂的对象或者数组。尽量确保其<code>props</code>类型是字符串、数字、布尔值之类的基本类型，即使真的需要用到对象和数组，也可以尽量简化其内部项的类型。</p>
+<p>这么设计有几个好处：</p>
+<ol>
+<li>属性分离，可以使得<code>props</code>有更好的语义化、功能更加清晰、易于理解</li>
+<li>基本类型的<code>props</code>可以直接在模板中作为字面量使用。但如果是对象和函数类型的字面量，那么因为模板每次都会重新生成<code>props</code>值，相当于每次渲染时得到的<code>props</code>是不同的，会导致<code>watch</code>回调函数的不必要触发</li>
+</ol>
+<p>但是也并不是所有的组件都一定要使用基本类型的<code>props</code>，如果基本类型并不能满足需求或者并不是特别好用，那么还是推荐使用对象或数组类型。</p>
+<p>举个例子，<code>tab</code>组件的可选tab数据更多是当前页面固定不变的，而<code>tree</code>的可选值数据更多的是动态输出（存储在后端）的。所以推荐<code>tab</code>组件的可选tab数据使用简单类型，而<code>tree</code>使用数组类型。</p>
+</div><div class="rule-code"><pre class="hljs"><code><span class="hljs-comment">&lt;!-- 正确例子 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">x-tabs</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"3"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-tab</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"1"</span>&gt;</span>首页<span class="hljs-tag">&lt;/<span class="hljs-name">x-tab</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-tab</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"2"</span>&gt;</span>动画<span class="hljs-tag">&lt;/<span class="hljs-name">x-tab</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-tab</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"3"</span>&gt;</span>电影<span class="hljs-tag">&lt;/<span class="hljs-name">x-tab</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-tab</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"4"</span>&gt;</span>电视剧<span class="hljs-tag">&lt;/<span class="hljs-name">x-tab</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-tab</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"5"</span>&gt;</span>其他<span class="hljs-tag">&lt;/<span class="hljs-name">x-tab</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">x-tabs</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">x-tree</span> <span class="hljs-attr">:value</span>=<span class="hljs-string">"selectedProductionId"</span> <span class="hljs-attr">:options</span>=<span class="hljs-string">"productionTree"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-tree</span>&gt;</span>
+</code></pre>
+                        
+                
+</div></div></div>
+<h3 id="propsdata"><code>props</code>和<code>data</code></h3>
+<div class="rule rule-13">
                         <div class="rule-right">
                         <div class="rule-txt"><p>Vue 的<code>props</code>和<code>data</code>配置有点相似，但又完全不一样。<strong><code>props</code>其实是组件对外部的属性接口，而<code>data</code>是组件内部的可变状态。</strong></p>
 <p>从Vue 2.0开始，<code>props</code>便不能通过<code>this.prop = newValue;</code>的赋值方式来修改（在debug模式下会报错），必须在组件外部通过属<code>v-bind/v-model</code>指令的方式由父组件传递过来新的值。而<code>data</code>则是可以在组件内外部来直接用Javascript赋值来修改的，不过很少会在组件外直接修改组件的<code>data</code>值。</p>

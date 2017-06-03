@@ -27,13 +27,17 @@ module.exports = function compileVue(html, styles) {
         lowerCaseAttributeNames: false,
         lowerCaseTags: false
     });
+    const allTemplates = $('template');
+    if (!allTemplates.length) {
+        return '';
+    }
 
     const style = $('style').each((index, style) => {
         styles.push($(style).html());
     });
 
     const componentsCode = [];
-    $('template').each((index, element) => {
+    allTemplates.each((index, element) => {
         const template = $(element).html();
         const script = $(element).next('script').html();
         componentsCode.push(compileComponent(template, script));
