@@ -191,7 +191,7 @@ function calc(position, relative) {
 
 这里要说的不是`for`循环 VS `forEach`方法，而是`for`循环 VS `map/filter/reduce`方法。通过下面这张图你可以清楚地知道它们的作用。
 
-[![](./static/map_filter_reduce.png)](https://twitter.com/apasella/status/741168882958880768)
+[![](./static/map_filter_reduce.png =300x)](https://twitter.com/apasella/status/741168882958880768)
 
 虽然`for`循环有着更好的性能，但是只要不是超大型数组，性能优势并不明显。相反`map/filter/reduce`方法却可以大大提高代码的可读性，所以更推荐使用他们。
 

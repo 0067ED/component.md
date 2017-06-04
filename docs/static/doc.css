@@ -8,6 +8,15 @@ html, body {
     -webkit-font-smoothing: antialiased;
     background-color: #FFF;
 }
+a {
+    color: #495057;
+}
+a:hover {
+    color: #FFF;
+    background-color: #495057;
+    text-decoration: none;
+    border-radius: 3px;
+}
 @media (min-width: 1024px) {
     html, body {
         font-size: 20px;
@@ -101,6 +110,7 @@ img {
 
 /* blockquote */
 .module blockquote {
+    margin: 0;
     padding-left: 1rem;
     color: #868e96;
     border-left: 2px solid currentColor;
@@ -161,6 +171,9 @@ img {
     border-left: none;
     box-sizing: border-box;
 }
+.rule-txt img {
+    max-width: 100%;
+}
 .rule-code {
     margin-left: -100%;
     float: right;
@@ -198,4 +211,11 @@ img {
 .rule-demo .component {
     display: inline-block;
     text-align: left;
+}
+
+/* rule-nocode */
+.rule-nocode .rule-txt {
+    position: static;
+    float: none;
+    left: auto;
 }

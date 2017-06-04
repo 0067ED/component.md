@@ -36,6 +36,7 @@ md.renderer.rules.fence = function() {
         : oldFenceRule.apply(this, arguments);
 };
 
+md.use(require('markdown-it-imsize'));
 md.use(require('markdown-it-anchor'), {});
 let count = 0;
 md.use(require('markdown-it-container'), 'RULE', {
@@ -45,6 +46,21 @@ md.use(require('markdown-it-container'), 'RULE', {
             // opening tag
             return `<div class="rule rule-${++count}">
                         <div class="rule-right">
+                        <div class="rule-txt">`;
+        }
+        else {
+            // closing tag
+            insideRuleContainer = false;
+            return '</div></div>\n';
+        }
+    }
+});
+md.use(require('markdown-it-container'), 'RULE_NO_CODE', {
+    render: function (tokens, idx) {
+        if (tokens[idx].nesting === 1) {
+            insideRuleContainer = true;
+            // opening tag
+            return `<div class="rule rule-nocode rule-${++count}">
                         <div class="rule-txt">`;
         }
         else {

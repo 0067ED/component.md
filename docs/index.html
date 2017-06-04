@@ -927,7 +927,7 @@
                         <div class="rule-txt"><p>在ES5之前，我们操作Javascript数组的常用方式是使用<code>for</code>循环。这是一种传统且非常高效的做法。在ES5之后，Javascript的数组引入了很多的原生方法，例如<code>Array.prototype.forEach</code>方法。这些特性的支持程度可以看<a href="http://kangax.github.io/compat-table/es5/">这个表</a>。</p>
 <p>于是大家开始争论使用<code>for</code>循环还是<code>forEach</code>方法，甚至有人做了<a href="https://jsperf.com/for-vs-foreach/75">性能对比</a>。<code>for</code>循环的优势在于：性能好，并且能够通过<code>break</code>关键字快速退出。 <code>forEach</code>方法的优势在于：可读性高，易于使用（天然带有闭包）。</p>
 <p>这里要说的不是<code>for</code>循环 VS <code>forEach</code>方法，而是<code>for</code>循环 VS <code>map/filter/reduce</code>方法。通过下面这张图你可以清楚地知道它们的作用。</p>
-<p><a href="https://twitter.com/apasella/status/741168882958880768"><img src="./static/map_filter_reduce.png" alt=""></a></p>
+<p><a href="https://twitter.com/apasella/status/741168882958880768"><img src="./static/map_filter_reduce.png" alt="" width="300"></a></p>
 <p>虽然<code>for</code>循环有着更好的性能，但是只要不是超大型数组，性能优势并不明显。相反<code>map/filter/reduce</code>方法却可以大大提高代码的可读性，所以更推荐使用他们。</p>
 </div><div class="rule-code"><pre class="hljs"><code><span class="hljs-comment">// 错误例子1</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getValues</span>(<span class="hljs-params">opts</span>) </span>{
@@ -1027,7 +1027,7 @@
 <div class="rule rule-13">
                         <div class="rule-right">
                         <div class="rule-txt"><p>Vue 的<code>props</code>和<code>data</code>配置有点相似，但又完全不一样。<strong><code>props</code>其实是组件对外部的属性接口，而<code>data</code>是组件内部的可变状态。</strong></p>
-<p>从Vue 2.0开始，<code>props</code>便不能通过<code>this.prop = newValue;</code>的赋值方式来修改（在debug模式下会报错），必须在组件外部通过属<code>v-bind/v-model</code>指令的方式由父组件传递过来新的值。而<code>data</code>则是可以在组件内外部来直接用Javascript赋值来修改的，不过很少会在组件外直接修改组件的<code>data</code>值。</p>
+<p>从Vue 2.0开始，<code>props</code>便不能通过<code>this.prop = newValue;</code>的赋值方式来修改（在debug模式下会报错），必须在组件外部通过属<code>v-bind/v-model</code>指令的方式由父组件传输过来新的值。而<code>data</code>则是可以在组件内外部来直接用Javascript赋值来修改的，不过很少会在组件外直接修改组件的<code>data</code>值。</p>
 <p>所以我们已经可以得到如下几个结论：</p>
 <ol>
 <li>如果这个状态不应该被组件外部修改，则只使用<code>data</code></li>
@@ -1040,7 +1040,7 @@
 </ol>
 <p>因为<code>props</code>和<code>data</code>不能同名，所以必须要区分一下。我们来看一个简单的输入框组件<code>x-input</code>的案例。</p>
 <p>输入框的值即需要被外部组件控制修改，也同时需要能够让用户键盘输入来修改。所以定义了一个<code>props</code>名为<code>value</code>被外部使用，再定义一个<code>currentValue</code>作为<code>data</code>被内部修改。具体结构看下图：</p>
-<p><img src="./static/vue_props_data.png" alt=""></p>
+<p><img src="./static/vue_props_data.png" alt="" width="400"></p>
 <p>绿色为组件实例，蓝色为<code>props</code>，黄色为<code>data</code>。初始化时<code>currentValue</code>的值会被赋值为<code>value</code>的值，并watch <code>value</code>值变化，如果外部修改<code>inputValue</code>则会立即更新<code>currentValue</code>。如果用户输入，则会更新<code>currentValue</code>并触发<code>input</code>事件然后通知<code>inputValue</code>新的值。</p>
 <p>这里会有一个死循环在内部，但是由于Vue的watch机制是在值发生变化（===）时才触发回调，所以不存在问题。所以你需要确保一个状态不应该有多个不同的引用值。</p>
 </div><div class="rule-code"><pre class="hljs"><code><span class="hljs-comment">&lt;!-- x-container --&gt;</span>
@@ -1211,6 +1211,179 @@
         
                 
 </div></div></div>
+<h3 id="">适度且灵活地使用模板的行内表达式</h3>
+<div class="rule rule-14">
+                        <div class="rule-right">
+                        <div class="rule-txt"><p>Vue 内置的模板很强大，设置提供了行内表达式功能。这让过去很麻烦难以处理的情况变得很简单，比如获取列表内点击行的数据。</p>
+<p>过去我们需要在渲染列表每一行的时候，把对应数据项的ID或者索引值作为<code>li</code>元素的<code>data-id</code>属性的值；然后在<code>ul</code>元素上绑定点击事件，通过事件代理拿到当前点击的<code>li</code>元素；然后获取<code>li</code>元素的<code>data-id</code>值，然后得到对应的数据项。</p>
+<p>而使用Vue之后，只需要通过行内表达式就可以轻易地做到，见右边。</p>
+<blockquote>
+<p>虽然行内表达很强大，但是并不推荐在表达式内写太复杂的逻辑。因为它可读性差，且难以复用。</p>
+<p>如果只是用来作为显示，则更推荐使用<code>computed</code>；如果是用来做复杂的执行，则推荐把值传给<code>methods</code>的方式；</p>
+</blockquote>
+</div><div class="rule-code"><pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"item in list"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"clickedItem = item"</span>&gt;</span>
+            {{item.name}}
+        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Clicked item name: {{clickedItem.name || ''}}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+        data() {
+            <span class="hljs-keyword">return</span> {
+                <span class="hljs-attr">list</span>: [
+                    {<span class="hljs-attr">name</span>: <span class="hljs-string">'Vue'</span>},
+                    {<span class="hljs-attr">name</span>: <span class="hljs-string">'Angular'</span>},
+                    {<span class="hljs-attr">name</span>: <span class="hljs-string">'React'</span>},
+                    {<span class="hljs-attr">name</span>: <span class="hljs-string">'jQuery'</span>}
+                ],
+                <span class="hljs-attr">clickedItem</span>: {}
+            };
+        }
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+                        
+            <script>'use strict';
+
+(function () {
+    var tmp = void 0;
+
+    var DemoComponent = Vue.extend(function () {
+        var Template = function () {
+            var options = {
+                render: function render() {
+                    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;
+                    return _c('div', {
+                        staticClass: "component"
+                    }, [_c('ul', _vm._l(_vm.list, function (item) {
+                        return _c('li', {
+                            on: {
+                                "click": function click($event) {
+                                    _vm.clickedItem = item;
+                                }
+                            }
+                        }, [_vm._v("\n            " + _vm._s(item.name) + "\n        ")]);
+                    })), _vm._v(" "), _c('div', [_vm._v("Clicked item name: " + _vm._s(_vm.clickedItem.name || ''))])]);
+                },
+                staticRenderFns: []
+            };return options;
+        }();
+        var Component = function () {
+
+            return {
+                data: function data() {
+                    return {
+                        list: [{ name: 'Vue' }, { name: 'Angular' }, { name: 'React' }, { name: 'jQuery' }],
+                        clickedItem: {}
+                    };
+                }
+            };
+        }();
+        Component.render = Template.render;
+        Component.staticRenderFns = Template.staticRenderFns;
+        return Component;
+    }());
+    var scripts = document.getElementsByTagName('script');
+    var script = scripts[scripts.length - 1];
+    var ruleDemo = document.createElement('div');
+    ruleDemo.className = 'rule-demo';
+    var div = document.createElement('div');
+    ruleDemo.appendChild(div);
+    var textDiv = script.parentNode.previousElementSibling;
+    textDiv.insertBefore(ruleDemo, textDiv.firstChild);
+    new DemoComponent().$mount(div);
+})();</script>
+        
+                
+</div></div></div>
+<h3 id="parent">尽量少使用<code>$parent</code></h3>
+<div class="rule rule-15">
+                        <div class="rule-right">
+                        <div class="rule-txt"><p>在 Vue 中，父子组件的数据传输主要依靠属性的由上向下传输，也就是所谓的单向数据流。当子组件想要向父组件传输数据时，一般使用事件。</p>
+<p>你可能会想到<code>v-model</code>或者<code>v-bind.sync</code>（2.0开时移除但2.3.0+重新增加）的双向绑定，其实它的内部实现机制也是依赖了单向数据流和事件，只是提供了一个简单的快捷方式而已。</p>
+<p>当然还有另一个自下向上传输数据的方式，就是<code>$parent</code>。但是应该尽量减少它的使用，如果使用了<code>$parent</code>则要考虑到不包含指定<code>$parent</code>的情况。</p>
+<blockquote>
+<p>主要原因是：一个组件应该能独立运行，不应该过度依赖其父组件。这会导致其不能在其他更为复杂的上下文中不能使用。例如父子组件之间插入了另一个其他组件，见右边代码。</p>
+</blockquote>
+<p>不过这个情况也并不绝对，比如右边的<code>x-form</code>与<code>x-form-item</code>。这两个组件是互相配合使用的，<code>x-form-item</code>不需要支持独立使用。但是我们也并不一定要使用<code>$parent</code>，更推荐使用<code>provide &amp;&amp; inject</code>机制。</p>
+</div><div class="rule-code"><pre class="hljs"><code><span class="hljs-comment">&lt;!-- 正常例子 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">x-form</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-form-item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"username"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">x-input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"0067ED"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-input</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">x-form-item</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-form-item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"password"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">x-input</span> <span class="hljs-attr">password</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-input</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">x-form-item</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-form-item</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>&gt;</span>登录<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">x-form-item</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">x-form</span>&gt;</span>
+
+
+<span class="hljs-comment">&lt;!-- 异常例子 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">x-form</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- 加入了水平布局的组件，导致了父子级关系改变 --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-layout</span> <span class="hljs-attr">align</span>=<span class="hljs-string">"horizontal"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">x-form-item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"username"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">x-input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"0067ED"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-input</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">x-form-item</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">x-layout</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-layout</span> <span class="hljs-attr">align</span>=<span class="hljs-string">"horizontal"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">x-form-item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"password"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">x-input</span> <span class="hljs-attr">password</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">x-input</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">x-form-item</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">x-layout</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">x-layout</span> <span class="hljs-attr">align</span>=<span class="hljs-string">"horizontal"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">x-form-item</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>&gt;</span>登录<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">x-form-item</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">x-layout</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">x-form</span>&gt;</span>
+</code></pre>
+                        
+                
+</div></div></div>
+<h3 id="provide-inject"><code>provide</code> 与 <code>inject</code> 实现上下数据传输</h3>
+<div class="rule rule-16">
+                        <div class="rule-right">
+                        <div class="rule-txt"><p>在Vue中，直接的父子组件可以通过属性和事件机制轻松地实现数据传输。但是属性和事件机制并不能覆盖到所有的情况：</p>
+<ul>
+<li>祖孙关系的组件</li>
+<li>父组件传输数据给<code>slot</code>中的子组件</li>
+</ul>
+<p>为了解决这些场景的数据传输问题。Vue自2.2.0开始，新增了<code>provide</code>与<code>inject</code>配置。通过它们可以轻松实现上下级关系的组件之间的数据传输。它的机制与React的context类似。</p>
+<p>上级组件通过<code>provide</code>配置暴露其指定名称的数据，下级组件通过<code>inject</code>配置注入其同名数据。由于<code>provide</code>配置支持函数类型，所以甚至可以将上级组件自己的引用传给下级组件。</p>
+<p><code>provide</code>与<code>inject</code>配置相对隐晦，且名称容易冲突。所以一般只用在组件开发中使用，不建议在业务逻辑开发中使用。</p>
+<p>如果浏览器支持ES6（<code>Symbol</code>和<code>Reflect.ownKeys</code>），那么可以使用<code>Symbol</code>作为名称来避免冲突。</p>
+</div><div class="rule-code"><pre class="hljs"><code><span class="hljs-keyword">var</span> Ancestor = {
+    provide() {
+        <span class="hljs-keyword">return</span> {
+            <span class="hljs-attr">specialAncestor</span>: <span class="hljs-keyword">this</span>
+        };
+    },
+    <span class="hljs-comment">// ...</span>
+};
+
+<span class="hljs-keyword">var</span> Child = {
+    <span class="hljs-attr">inject</span>: [specialAncestor],
+    created() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.specialAncestor);
+    }
+};
+</code></pre>
+                        
+                
+</div></div></div>
+<h3 id="-2">非父子组件的数据传输</h3>
+<div class="rule rule-nocode rule-17">
+                        <div class="rule-txt"><p>之前两条tips中已经提到了有上下级关系的组件之间的数据传输，那么如果是兄弟组件呢？这种情况下由于没有上下级关系，所以不能通过属性、事件或者<code>provide &amp;&amp; inject</code>来传输数据。</p>
+<p>一般有两种方法来解决非上下级关系的组件之间的数据传输。第一种是使用组件共同的祖先组件来实现数据共享。还有一种方法是使用类似<a href="https://facebook.github.io/flux/">Flux</a>的架构来管理和实现全局的<code>store</code>。例如<a href="https://github.com/vuejs/vuex">Vuex</a>是一个不错的选择。</p>
+<p><a href="https://vuejs.org/v2/guide/state-management.html#Official-Flux-Like-Implementation"><img src="./static/state.png" alt="" width="600"></a></p>
+</div></div>
 </div>
         </div>
         <script src="./static/doc.js"></script>
