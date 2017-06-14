@@ -280,20 +280,36 @@ var Child = {
 
 那么问题来了，在文档中并没有找到使用template方式传递scoped slot的介绍和例子。但是我们找到这句话：“ Vue 推荐在绝大多数情况下使用 template 来创建你的 HTML。然而在一些场景中，你真的需要 JavaScript 的完全编程的能力，这就是 render 函数，它比 template 更接近编译器。” 于是我们可以把scoped slot作为createElement方法的第二参数（data object）的一个属性传递到子组件中。
 
-```Javascript
   // Scoped slots in the form of
   // { name: props => VNode | Array<VNode> }
   scopedSlots: {
     default: props => h('span', props.text)
   },
-```
+
 只是render函数的缺点是不灵活，特别是在定义你的组件的dom结构模板的时候，如果写很多 render 函数，可能会觉得痛苦。它比较适用于外层组件仅仅是对内层组件的一次逻辑封装，而渲染的模板结构变化扩展不多的情况。
 
 还好我们还有最后一把杀手锏--JSX。它可以让我们回到于更接近模板的语法上。
 举一个栗子，我们要开发一个下拉选择组件（select），其中下来出来的列表（select-list）是一个子组件（它可以被应用到其他组件中）。
-而列表的每一行被select-list组件作为了scoped slot，这样用户就能自定义这个列表的每一行如何组织长什么样。简化的template：
+而列表的每一行被select-list组件作为了scoped slot，这样用户就能自定义这个列表的每一行如何组织长什么样。简化的template（代码片段1）：
 
-```html
+
+然后在写select组件时我们通过JSX在其render函数中这样定义模板（代码片段2）：
+
+关键点：
+
+- 在子组件的标签上通过`scopedSlots`属性可以向其传递自己的scoped slot；
+- 自身的scoped slot可以通过`this.$scopedSlots`对象获取，默认就是default，具名slot就是它的名字。本例为`listItem`；
+- 如果不在标签上传递而是需要使用表达式传递，也可以通过`this.$scopedSlots`对象。并且一个具体的scoped slot对象其实就是一个函数，其内部的scope可以在参数中传入。比如本例中的`this.$scopedSlots.headItem(this.current)`
+
+与普通template的不同
+- directives 参见本例代码
+- v-model 通过value属性传递值，并通过绑定input事件来响应变化。
+- v-if、v-for 本例中使用三目表达式来实现v-if
+
+这就是深入底层要付出的,尽管麻烦了一些，但你可以更灵活地控制。
+
+```jsx
+代码片段1:
 <template>
 <ul>
     <li v-for="(item, index) in options">
@@ -303,11 +319,8 @@ var Child = {
     </li>
 </ul>
 </template>
-```
 
-然后在写select组件时我们通过JSX在其render函数中这样定义模板：
-
-```jsx
+代码片段2:
 render(h) {
     let directives = [{
         name: 'popper',
@@ -344,18 +357,5 @@ render(h) {
     );
 }
 ```
-
-关键点：
-
-- 在子组件的标签上通过`scopedSlots`属性可以向其传递自己的scoped slot；
-- 自身的scoped slot可以通过`this.$scopedSlots`对象获取，默认就是default，具名slot就是它的名字。本例为`listItem`；
-- 如果不在标签上传递而是需要使用表达式传递，也可以通过`this.$scopedSlots`对象。并且一个具体的scoped slot对象其实就是一个函数，其内部的scope可以在参数中传入。比如本例中的`this.$scopedSlots.headItem(this.current)`
-
-与普通template的不同
-- directives 参见本例代码
-- v-model 通过value属性传递值，并通过绑定input事件来响应变化。
-- v-if、v-for 本例中使用三目表达式来实现v-if
-
-这就是深入底层要付出的,尽管麻烦了一些，但你可以更灵活地控制。
 
 :::
