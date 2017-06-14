@@ -309,7 +309,7 @@ var Child = {
 这就是深入底层要付出的,尽管麻烦了一些，但你可以更灵活地控制。
 
 ```jsx
-代码片段1:
+<!--代码片段1:-->
 <template>
 <ul>
     <li v-for="(item, index) in options">
@@ -320,7 +320,8 @@ var Child = {
 </ul>
 </template>
 
-代码片段2:
+<!--代码片段2:-->
+<script>
 render(h) {
     let directives = [{
         name: 'popper',
@@ -356,6 +357,7 @@ render(h) {
         </div>
     );
 }
+</script>
 ```
 
 :::
